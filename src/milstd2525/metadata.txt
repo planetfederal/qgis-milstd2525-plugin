@@ -1,0 +1,11 @@
+[general]
+name=MIL-STD-2525
+description=A plugin to support MIL-STD-2525 symbology in QGIS
+version=1.0
+qgisMinimumVersion=2.0
+author=
+email=
+homepage=
+icon=base.png
+class_name=MilStd2525Plugin
+experimental = False
