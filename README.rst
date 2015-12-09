@@ -73,11 +73,13 @@ Current status
 
 Both renderer and custom widget are implemented, but still not working correctly.
 
-The renderer sometimes freezes QGIS. A dialog (probably a progress one?) is shown when the canvas is refreshed, and sometimes that crashes QGIS
+The renderer sometimes freezes QGIS. A dialog (probably a progress one?) is shown when the canvas is refreshed, and sometimes that crashes QGIS (that only happens in Windows, not in OSX after the testing i have done)
 
 Also, when the MIL-STD-2525 renderer is selected and the selection switches to another different renderer, the following exception is raised:
 
 	TypeError: invalid result type from MilStd2525RendererWidget.renderer()
+	
+When using OSX the above error is instead an error indicating that the Wrapped C++ object has been deleted, so it looks like the object is being garbage collected
 
 For the custom widget, it can be correctly set for an attirbute, but when the attribute table is then opened, QGIS crashes and a minidump is generated.
 
