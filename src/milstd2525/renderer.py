@@ -37,6 +37,12 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
     def usedAttributes(self):
         return self.fields
 
+    def symbols2(self, context):
+        return self.cachedSymbols.values()
+
+    def dump(self):
+        return "MILSTD2525"
+
     def clone(self):
         self._clone = MilStd2525Renderer(self.size, self.field, self.fields)
         return self._clone
@@ -89,6 +95,6 @@ class MilStd2525RendererMetadata(QgsRendererV2AbstractMetadata):
     def createRenderer(self, element):
         self.renderer = MilStd2525Renderer()
         return self.renderer
-        
+
     def createRendererWidget(self, layer, style, renderer):
         return MilStd2525RendererWidget(layer, style, renderer)
