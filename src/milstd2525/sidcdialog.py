@@ -179,6 +179,7 @@ class SIDCDialog(BASE, WIDGET):
         self.comboHQ.currentIndexChanged.connect(self.computeCodeFromCombos)
         self.comboModifier1.currentIndexChanged.connect(self.computeCodeFromCombos)
         self.comboModifier2.currentIndexChanged.connect(self.computeCodeFromCombos)
+        self.comboIcon.currentIndexChanged.connect(self.computeCodeFromCombos)
 
         self.comboSymbolSet.addItems(sorted(self.symbolSet.keys()))
         self.comboSymbolSet.currentIndexChanged.connect(self.symbolSetChanged)
@@ -297,6 +298,8 @@ class SIDCDialog(BASE, WIDGET):
         self.comboModifier1.blockSignals(False)
         self.comboModifier2.blockSignals(False)
         self.computeCodeFromCombos()
+
+        self.comboSubtypes.setEnabled(self.symbolSet[self.comboSymbolSet.currentText()] == "10")
 
     def renderSymbol(self):
         text = self.txtCode.text()
