@@ -1,4 +1,5 @@
 import os
+# -*- coding: utf-8 -*-
 
 from PyQt4 import uic
 
