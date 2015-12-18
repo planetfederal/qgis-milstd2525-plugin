@@ -39,7 +39,9 @@ To set the editor widget, open the properties of the layer that contains SDIC co
 
 For the attribute that contain SDIC codes (in the image above, the attribute called "SDIC"), click on the button in the "Edit widget" column. A new dialog will open. Select the "SDIC code editor" option and click OK. Close the properties window.
 
-If you now open the attributes table of the layer and switch to the form view mode, the SDIC field will have a text box to enter the code and a button. 
+If you now open the attributes table of the layer and put it in edit mode, the SDIC field will have a text box to enter the code and a button. 
+
+.. image:: img/customWidget.png
 
 Clicking on the button will show the preview dialog, that you can use to enter a code and preview the corresponding icon
 
@@ -57,8 +59,6 @@ http://spatialillusions.com/unitgenerator.html
 
 This tool is useful for checking that markers are correctly rendered and the SDIC codes are being correctly interpreted.
 
-Eventually, an interface like that, in which you select the categories and the SDIC code is cumputed base on that, could beimplemented for the custom editor widget
-
 ---
 
 Markers single parts, from which full markers are created, are taken from this project:
@@ -71,18 +71,11 @@ Additional info about the icons themselves and the coding of markers can be foun
 Current status
 ===============
 
-Both renderer and custom widget are implemented, but still not working correctly.
+Both renderer and custom widget are implemented.
 
-The renderer sometimes freezes QGIS. A dialog (probably a progress one?) is shown when the canvas is refreshed, and sometimes that crashes QGIS (that only happens in Windows, not in OSX after the testing i have done)
+The renderer raises an exception when it is deselected in the properties windows. Work can  be resumed after closing the error dialog, and it does not charsh QGIS.
 
-Also, when the MIL-STD-2525 renderer is selected and the selection switches to another different renderer, the following exception is raised:
+The error is related to the rendered object being garbage collected by QGIS, and is likely to be a SIP issue.
 
-	TypeError: invalid result type from MilStd2525RendererWidget.renderer()
-	
-When using OSX the above error is instead an error indicating that the Wrapped C++ object has been deleted, so it looks like the object is being garbage collected
 
-For the custom widget, it can be correctly set for an attirbute, but when the attribute table is then opened, QGIS crashes and a minidump is generated.
 
-The same problem appears with the example custom edit widget in the PyCookBook. A plugin that has a custom widget and works fine can be found here (in case it helps to compares and find out the reason of this malfunctioning)
-
-https://github.com/elpaso/qgis-formawarevaluerelationwidget
