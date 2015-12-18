@@ -49,9 +49,6 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
     def symbols2(self, context):
         return self.cachedSymbols.values()
 
-    def dump(self):
-        return "MILSTD2525"
-
     def clone(self):
         return MilStd2525Renderer(self.size, self.field, self.fields)
 

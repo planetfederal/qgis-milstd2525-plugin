@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import os
-        self.widget.hbox.setMargin(0)
-        self.widget.hbox.setSpacing(0)
 
 from PyQt4 import uic
 from PyQt4.QtGui import QPixmap
@@ -128,6 +126,9 @@ class SIDCDialog(BASE, WIDGET):
         self.comboSymbolSet.addItems(sorted(self.symbolSet.keys()))
         self.comboSymbolSet.currentIndexChanged.connect(self.symbolSetChanged)
         self.symbolSetChanged()
+
+        if code:
+            self.setValue(code)
 
         self.newCode = None
 

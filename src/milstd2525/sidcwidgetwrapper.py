@@ -2,6 +2,7 @@
 
 import os
 
+from PyQt4 import uic
 from PyQt4.QtGui import QWidget, QLabel, QLineEdit, QPushButton, QHBoxLayout
 
 from qgis.core import NULL
@@ -10,14 +11,20 @@ from qgis.gui import QgsEditorWidgetWrapper, QgsEditorConfigWidget, QgsEditorWid
 from sidcdialog import SIDCDialog
 from milstd2525 import symbolForCode
 
-class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
 
+pluginPath = os.path.dirname(__file__)
+
+CONFIG_WIDGET, CONFIG_BASE = uic.loadUiType(
+    os.path.join(pluginPath, 'ui', 'milstd2525configwidgetbase.ui'))
+
+
+class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
     def __init__(self, vl, fieldIdx, editor, parent):
         self.widget = None
         super(SIDCWidgetWrapper, self).__init__(vl, fieldIdx, editor, parent)
 
     def value( self ):
-        if self.widget.edit.text() == u"NULL":
+        if self.widget.edit.text() == 'NULL':
             return NULL
         else:
             return self.widget.edit.text()
@@ -40,6 +47,8 @@ class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
                 self.widget.edit.setText(dialog.newCode)
         self.widget.button.clicked.connect(showDialog)
         self.widget.hbox = QHBoxLayout()
+        self.widget.hbox.setMargin(0)
+        self.widget.hbox.setSpacing(0)
         self.widget.hbox.addWidget(self.widget.edit)
         self.widget.hbox.addWidget(self.widget.button)
         self.widget.setLayout(self.widget.hbox)
@@ -52,13 +61,10 @@ class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
         return True
 
 
-
-class SIDCWidgetWrapperConfig(QgsEditorConfigWidget):
+class SIDCWidgetWrapperConfig(QgsEditorConfigWidget, CONFIG_WIDGET):
     def __init__(self, layer, idx, parent):
-        QgsEditorConfigWidget.__init__(self, layer, idx, parent)
-        self.setLayout(QHBoxLayout())
-        label = QLabel("This edit widget allows entering SDIC codes and get a preview of the corresponding icon")
-        self.layout().addWidget(label)
+        super(SIDCWidgetWrapperConfig, self).__init__(layer, idx, parent)
+        self.setupUi(self)
 
     def config( self ):
         return {}
@@ -69,7 +75,7 @@ class SIDCWidgetWrapperConfig(QgsEditorConfigWidget):
 
 class SIDCWidgetWrapperFactory(QgsEditorWidgetFactory):
     def __init__(self):
-        QgsEditorWidgetFactory.__init__(self, "SDIC code editor")
+        QgsEditorWidgetFactory.__init__(self, 'SIDC code editor')
 
     def create(self, layer, fieldIdx, editor, parent):
         self.wrapper =  SIDCWidgetWrapper(layer, fieldIdx, editor, parent)
