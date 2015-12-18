@@ -196,11 +196,37 @@ class SIDCDialog(BASE, WIDGET):
         self.comboSymbolSet.currentIndexChanged.connect(self.symbolSetChanged)
         self.symbolSetChanged()
 
-        #if code:
-            #self.txtCode.setText(code)
+        if code:
+            self.setValue(code)
         self.newCode = None
 
+    def _setComboItem(self, combo, options, value):
+        reversedMap = {v:k for k,v in options.iteritems()}
+        text = reversedMap[value]
+        idx = combo.findText(text)
+        if idx != -1:
+            combo.setCurrentIndex(idx)
 
+
+    def setValue(self, code):
+        stdid1 = code[2]
+        stdid2 = code[3]
+        symbolSet = code[4:6]
+        status = code[6]
+        hq = code[7]
+        echelon = code[8:10]
+        icon = code[10:16]
+        m1 = code[16:18]
+        m2 = code[18:20]
+        self._setComboItem(self.comboStandardId1, self.standardId1, stdid1)
+        self._setComboItem(self.comboStandardId2, self.standardId2, stdid2)
+        self._setComboItem(self.comboSymbolSet, self.symbolSet, symbolSet)
+        self._setComboItem(self.comboStatus, self.status, status)
+        self._setComboItem(self.comboHQ, self.hq, hq)
+        self._setComboItem(self.comboEchelon, self.echelon, echelon)
+        self._setComboItem(self.comboIcon, self.icons, icon)
+        self._setComboItem(self.comboModifier1, self.m1, m1)
+        self._setComboItem(self.comboModifier2, self.m2, m2)
 
     def computeCodeFromCombos(self):
         symbolSet = self.symbolSet[self.comboSymbolSet.currentText()]
