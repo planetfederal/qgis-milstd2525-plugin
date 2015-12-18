@@ -8,37 +8,46 @@ from qgis.gui import *
 from qgis.core import NULL
 
 class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
+
+    def __init__(self, vl, fieldIdx, editor, parent):
+        self.widget = None
+        super(SIDCWidgetWrapper, self).__init__(vl, fieldIdx, editor, parent)
+
     def value( self ):
-        if self.edit.text() == u"NULL":
+        if self.widget.edit.text() == u"NULL":
             return NULL
         else:
-            return self.edit.text()
+            return self.widget.edit.text()
 
     def setValue(self, value):
         if value == NULL:
-            self.edit.setText('NULL')
+            self.widget.edit.setText('NULL')
         else:
-            self.edit.setText(value)
+            self.widget.edit.setText(value)
 
     def createWidget(self, parent):
-        widget = QtGui.QWidget()
-        self.edit = QtGui.QLineEdit()
-        button = QtGui.QPushButton()
-        button.setText("...")
+        self.widget = QtGui.QWidget(parent)
+        self.widget.edit = QtGui.QLineEdit()
+        self.widget.button = QtGui.QPushButton()
+        self.widget.button.setText("...")
         def showDialog():
-            dialog = SIDCDialog(self.edit.text())
+            dialog = SIDCDialog(self.widget.edit.text())
             dialog.exec_()
             if dialog.newCode is not None:
-                self.edit.setText(dialog.newCode)
-        button.clicked.connect(showDialog)
-        hbox = QtGui.QHBoxLayout()
-        hbox.addWidget(self.edit)
-        hbox.addWidget(button)
-        widget.setLayout(hbox)
-        return widget
+                self.widget.edit.setText(dialog.newCode)
+        self.widget.button.clicked.connect(showDialog)
+        self.widget.hbox = QtGui.QHBoxLayout()
+        self.widget.hbox.addWidget(self.widget.edit)
+        self.widget.hbox.addWidget(self.widget.button)
+        self.widget.setLayout(self.widget.hbox)
+        return self.widget
 
     def initWidget(self, editor):
-        self.edit = editor
+        self.widget = editor
+
+    def valid(self):
+        return True
+
 
 
 class SIDCWidgetWrapperConfig(QgsEditorConfigWidget):
