@@ -5,9 +5,9 @@ Support for MIL-STD-2525 in QGIS
 
 This plugin adds two new capabilities to QGIS:
 
-- Custom renderer for rendering a layer with SDIC codes in one of its attributes
+- Custom renderer for rendering a layer with SIDC codes in one of its attributes
 
-- Custom editor widget, for entering SDIC codes in the corresponding field with an icon preview.
+- Custom editor widget, for entering SIDC codes in the corresponding field with an icon preview.
 
 Custom Renderer
 ----------------
@@ -20,7 +20,7 @@ It has two configuration parameters: size and field
 
 .. image:: img/symbologyDialog.png
 
-In the field combo box, select the attribute from the layer that contains the SDIC codes to be used for setting the markers
+In the field combo box, select the attribute from the layer that contains the SIDC codes to be used for setting the markers
 
 In the size text box, enter the rendering size of the markers in pixels.
 
@@ -35,11 +35,11 @@ For features with an invalid code in the selected field, a default marker with a
 Custom editor widget
 ---------------------
 
-To set the editor widget, open the properties of the layer that contains SDIC code in one of its attributes and go to the "Fields" group.
+To set the editor widget, open the properties of the layer that contains SIDC code in one of its attributes and go to the "Fields" group.
 
-For the attribute that contain SDIC codes (in the image above, the attribute called "SDIC"), click on the button in the "Edit widget" column. A new dialog will open. Select the "SDIC code editor" option and click OK. Close the properties window.
+For the attribute that contain SIDC codes (in the image above, the attribute called "SDIC"), click on the button in the "Edit widget" column. A new dialog will open. Select the "SIDC code editor" option and click OK. Close the properties window.
 
-If you now open the attributes table of the layer and put it in edit mode, the SDIC field will have a text box to enter the code and a button. 
+If you now open the attributes table of the layer and put it in edit mode, the SIDC field will have a text box to enter the code and a button.
 
 .. image:: img/customWidget.png
 
@@ -53,7 +53,7 @@ Further info
 
 Here's some extra info to continue developing/testing this plugin:
 
-A generator of markers from SDIC codes can be found here:
+A generator of markers from SIDC codes can be found here:
 
 http://spatialillusions.com/unitgenerator.html
 
