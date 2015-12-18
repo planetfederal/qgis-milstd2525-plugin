@@ -37,6 +37,8 @@ class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
                 self.widget.edit.setText(dialog.newCode)
         self.widget.button.clicked.connect(showDialog)
         self.widget.hbox = QtGui.QHBoxLayout()
+        self.widget.hbox.setMargin(0)
+        self.widget.hbox.setSpacing(0)
         self.widget.hbox.addWidget(self.widget.edit)
         self.widget.hbox.addWidget(self.widget.button)
         self.widget.setLayout(self.widget.hbox)
