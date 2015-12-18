@@ -1,9 +1,17 @@
-from PyQt4.QtGui import QComboBox, QLabel, QHBoxLayout, QSpinBox, QVBoxLayout
+import os
+
+from PyQt4 import uic
 
 from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata
-from qgis.gui import QgsRendererV2Widget
+from qgis.gui import QgsRendererV2Widget, QgsFieldProxyModel
 
 from milstd2525 import symbolForCode, getDefaultSymbol
+
+
+pluginPath = os.path.dirname(__file__)
+
+WIDGET, BASE = uic.loadUiType(
+    os.path.join(pluginPath, 'ui', 'milstd2525rendererwidgetbase.ui'))
 
 
 class MilStd2525Renderer(QgsFeatureRendererV2):
@@ -50,36 +58,24 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         return 'MILSTD2525'
 
 
-class MilStd2525RendererWidget(QgsRendererV2Widget):
+class MilStd2525RendererWidget(QgsRendererV2Widget, WIDGET):
     def __init__(self, layer, style, renderer):
-        QgsRendererV2Widget.__init__(self, layer, style)
+        super(MilStd2525RendererWidget, self).__init__(layer, style)
+        self.setupUi(self)
 
         if renderer is None or renderer.type() != 'MilStd2525Renderer':
             fields = [f.name() for f in layer.dataProvider().fields()]
             self.r = MilStd2525Renderer(field = fields[0], fields = fields)
         else:
             self.r = renderer
-        self.combo = QtGui.QComboBox()
-        for f in layer.dataProvider().fields():
-            self.combo.addItem(f.name(), f.name())
-        idx =  max(0, layer.dataProvider().fieldNameIndex(self.r.field))
-        self.combo.setCurrentIndex(idx)
-        self.combo.currentIndexChanged.connect(self.fieldChanged)
-        self.labelField = QtGui.QLabel('SIDC code field')
-        self.hbox = QtGui.QHBoxLayout()
-        self.hbox.addWidget(self.labelField)
-        self.hbox.addWidget(self.combo)
-        self.spinSize = QtGui.QSpinBox()
-        self.spinSize.setValue(self.r.size)
-        self.spinSize.valueChanged.connect(self.sizeChanged)
-        self.labelSize = QtGui.QLabel('Size (pixels)')
-        self.hbox2 = QtGui.QHBoxLayout()
-        self.hbox2.addWidget(self.labelSize)
-        self.hbox2.addWidget(self.spinSize)
-        self.vbox = QtGui.QVBoxLayout()
-        self.vbox.addLayout(self.hbox)
-        self.vbox.addLayout(self.hbox2)
-        self.setLayout(self.vbox)
+
+        self.cmbField.setLayer(layer)
+        self.cmbField.setFilters(QgsFieldProxyModel.String)
+
+        self.spnSize.setValue(self.r.size)
+
+        self.cmbField.fieldChanged.connect(self.fieldChanged)
+        self.spnSize.valueChanged[float].connect(self.sizeChanged)
 
     def sizeChanged(self, value):
         self.r.size = value
@@ -93,7 +89,8 @@ class MilStd2525RendererWidget(QgsRendererV2Widget):
 
 class MilStd2525RendererMetadata(QgsRendererV2AbstractMetadata):
     def __init__(self):
-        QgsRendererV2AbstractMetadata.__init__(self, 'MilStd2525Renderer', 'MIL-STD-2525 renderer')
+        QgsRendererV2AbstractMetadata.__init__(
+            self, 'MilStd2525Renderer', 'MIL-STD-2525 renderer')
 
     def createRenderer(self, element):
         return MilStd2525Renderer()

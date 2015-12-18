@@ -11,11 +11,11 @@ class MilStd2525Plugin:
         self._rendererMetadata = MilStd2525RendererMetadata()
         #self._widgetWrapperFactory = SIDCWidgetWrapperFactory()
 
-        QgsRendererV2Registry.instance().addRenderer(iface._rendererMetadata)
+        QgsRendererV2Registry.instance().addRenderer(self._rendererMetadata)
         #QgsEditorWidgetRegistry.instance().registerWidget('SDIC code editor', iface._widgetWrapperFactory)
 
     def unload(self):
-        QgsEditorWidgetRegistry.instance().removeRenderer('MilStd2525Renderer')
+        QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')
 
     def initGui(self):
         pass

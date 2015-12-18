@@ -85,7 +85,8 @@ def getSymbolLayer(folder, svg, size):
 def getDefaultSymbol(size):
     symbol = QgsMarkerSymbolV2()
     symbolLayer = QgsSvgMarkerSymbolLayerV2()
-    symbolLayer.setPath(os.path.join(os.path.dirname(__file__), 'svg', 'questionmark.svg'))
+    symbolLayer.setPath(
+        os.path.join(os.path.dirname(__file__), 'svg', 'questionmark.svg'))
     symbolLayer.setSizeUnit(3)
     symbolLayer.setSize(size)
     symbol.insertSymbolLayer(0, symbolLayer)
