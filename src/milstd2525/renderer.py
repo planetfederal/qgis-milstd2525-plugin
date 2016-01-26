@@ -35,7 +35,7 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         else:
             return getDefaultSymbol(self.size)
 
-    def startRender(self, context, vlayer):
+    def startRender(self, context, fields):
         for s in self.cachedSymbols.values():
             s.startRender(context)
 
@@ -65,7 +65,7 @@ class MilStd2525RendererWidget(QgsRendererV2Widget, WIDGET):
             fields = [f.name() for f in layer.dataProvider().fields()]
             self.r = MilStd2525Renderer(field = fields[0], fields = fields)
         else:
-            self.r = renderer
+            self.r = renderer.clone()
 
         self.cmbField.setLayer(layer)
         self.cmbField.setFilters(QgsFieldProxyModel.String)
@@ -79,7 +79,7 @@ class MilStd2525RendererWidget(QgsRendererV2Widget, WIDGET):
         self.r.size = value
 
     def fieldChanged(self):
-        self.r.field = self.combo.currentText()
+        self.r.field = self.cmbField.currentText()
 
     def renderer(self):
         return self.r
