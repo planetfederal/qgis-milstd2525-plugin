@@ -55,6 +55,13 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
     def dump(self):
         return 'MILSTD2525'
 
+    def save(self, doc):
+        elem = doc.createElement('renderer-v2')
+        elem.setAttribute('type', 'MILSTD2525')
+        elem.setAttribute('size', self.size)
+        elem.setAttribute('field', self.field)
+        return elem
+
 
 class MilStd2525RendererWidget(QgsRendererV2Widget, WIDGET):
     def __init__(self, layer, style, renderer):
@@ -91,7 +98,7 @@ class MilStd2525RendererMetadata(QgsRendererV2AbstractMetadata):
             self, 'MilStd2525Renderer', 'MIL-STD-2525 renderer')
 
     def createRenderer(self, element):
-        return MilStd2525Renderer()
+        return MilStd2525Renderer(int(element.attribute('size')), element.attribute('field'))
 
     def createRendererWidget(self, layer, style, renderer):
         return MilStd2525RendererWidget(layer, style, renderer)
