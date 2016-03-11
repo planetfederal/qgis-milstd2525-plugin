@@ -5,7 +5,6 @@ Plugin that add support for MIL-STD-2525 symbology in QGIS. It provides:
  - custom editor widget, for entering SIDC codes in the corresponding field
    with an icon preview
 
-
 ## Contribute
 
 MilStd2525 is on GitHub at https://github.com/boundlessgeo/QGIS-MIL-STD-2525.
