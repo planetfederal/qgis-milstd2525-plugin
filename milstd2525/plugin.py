@@ -34,12 +34,12 @@ class MilStd2525Plugin:
     def __init__(self, iface):
         self.iface = iface
         try:
-            from tests import testerplugin
+            from milstd2525.tests import testerplugin
             from qgistester.tests import addTestModule
-            addTestModule(testerplugin, "MIL-STD-2525")
+            addTestModule(testerplugin, 'MIL-STD-2525')
         except:
             pass
-                        
+
         self._rendererMetadata = MilStd2525RendererMetadata()
         self._widgetWrapperFactory = SIDCWidgetWrapperFactory()
 
