@@ -34,6 +34,12 @@ options(
 
 
 @task
+def setup():
+    """Empty: to ensure we use the same build/install procedure for all our plugins"""
+    pass
+
+
+@task
 def install(options):
     """Install plugin to QGIS plugin directory
     """

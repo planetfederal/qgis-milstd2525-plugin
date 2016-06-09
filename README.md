@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/boundlessgeo/qgis-milstd2525-plugin.svg?branch=master)](https://travis-ci.org/boundlessgeo/qgis-milstd2525-plugin)
+
 # MilStd2525
 
 Plugin that add support for MIL-STD-2525 symbology in QGIS. It provides:
