@@ -49,5 +49,12 @@ class MilStd2525Plugin:
     def unload(self):
         QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')
 
+        try:
+            from milstd2525.tests import testerplugin
+            from qgistester.tests import removeTestModule
+            removeTestModule(testerplugin, 'MIL-STD-2525')
+        except:
+            pass
+
     def initGui(self):
         pass
