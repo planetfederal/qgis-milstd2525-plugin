@@ -152,7 +152,10 @@ class SIDCDialog(BASE, WIDGET):
         self.symbolSetChanged()
 
         if code:
-            self.setValue(code)
+            try:
+                self.setValue(code)
+            except:
+                pass
 
         self.newCode = None
 
@@ -182,6 +185,7 @@ class SIDCDialog(BASE, WIDGET):
         self._setComboItem(self.comboIcon, self.icons, icon)
         self._setComboItem(self.comboModifier1, self.m1, m1)
         self._setComboItem(self.comboModifier2, self.m2, m2)
+
     def computeCodeFromCombos(self):
         symbolSet = self.symbolSet[self.comboSymbolSet.currentText()]
         icon = self.icons[self.comboIcon.currentText()]
