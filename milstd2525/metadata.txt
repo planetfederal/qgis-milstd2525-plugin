@@ -1,16 +1,21 @@
 [general]
 name=MIL-STD-2525
-description=A plugin to support MIL-STD-2525 symbology in QGIS
-about=Select, place and edit MIL-STD-2525 symbology in QGIS
-version=1.0
+description=Work with MIL-STD-2525 symbology in QGIS. Render and edit a layer's SIDC codes.
+about=<p>MIL-STD-2525/NATO APP-6 is a standard for military symbol sets derived from recent NATO and US operations. The plugin includes a custom renderer and a custom editing widget for working with the standard.</p><p>This plugin is available with a Boundless Desktop&nbsp;&mdash; Enterprise Subscription. <a href="https://connect.boundlessgeo.com/UserLogin?returnurl=%2fPurchase-Boundless-Desktop" style="font: bold; text-decoration: none; background-color: #edd400; color: #333333; padding: 2px 6px 2px 6px; border-top: 1px solid #c4a000; border-right: 1px solid #c4a000; border-bottom: 1px solid #c4a000; border-left: 1px solid #c4a000;">Get&nbsp;access</a></p>
+category=Plugins
 qgisMinimumVersion=2.0
+version=1.0
+
 author=Victor Olaya (Boundless)
 email=volaya@boundlessgeo.com
-repository=https://github.com/boundlessgeo/qgis-milstd2525-plugin
-tracker=https://github.com/boundlessgeo/qgis-milstd2525-plugin/issues
-homepage=http://boundlessgeo.com
+
 icon=base.png
-class_name=MilStd2525Plugin
-tags=plugins,boundless
+
+tags=boundless,MIL-STD-2525,NATO APP-6,SIDC,symbology,MOLE
+
+homepage=http://boundlessgeo.com
+tracker=https://github.com/boundlessgeo/qgis-milstd2525-plugin/issues
+repository=https://github.com/boundlessgeo/qgis-milstd2525-plugin
+
 experimental=False
-changelog=
+deprecated=False
