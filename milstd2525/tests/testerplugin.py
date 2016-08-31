@@ -38,14 +38,19 @@ def functionalTests():
     editWidgetTest = Test("Test code edit widget")
     editWidgetTest.addStep("Open project", _openProject)
     #editWidgetTest.addStep("Open layer properties", _openLayerProperties)
-    editWidgetTest.addStep("Set the editor of the SDIC file to 'SDIC code editor")
+    editWidgetTest.addStep("Set the editor of the SDIC field to 'SDIC code editor")
     editWidgetTest.addStep("Toggle editing", _startEditing)
     editWidgetTest.addStep("Open attributes table", _openAttributesTable)
     editWidgetTest.addStep("Edit a value in the table using the code editor widget and check that it works correctly")
     editWidgetTest.addStep("Toggle editing", _stopEditing)
 
+    renderedTest = Test("Renderer test")
+    renderedTest.addStep("Open project", _openProject)
+    renderedTest.addStep("Open layer properties", _openLayerProperties)
+    renderedTest.addStep("Set renderer othe editor of the layer to 'MIL-STD-2525 renderer'. Verify it renders correctly")
 
-    return [editWidgetTest]
+
+    return [editWidgetTest, rendererTest]
 
 
 def unitTests():
