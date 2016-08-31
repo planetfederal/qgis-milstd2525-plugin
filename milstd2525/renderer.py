@@ -28,7 +28,7 @@ import os
 
 from PyQt4 import uic
 
-from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata
+from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata, QgsMarkerSymbolV2, QgsSymbolV2, QGis
 from qgis.gui import QgsRendererV2Widget, QgsFieldProxyModel
 
 from milstd2525 import symbolForCode, getDefaultSymbol
@@ -46,33 +46,34 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         self.field = field
         self.fields = fields
         self.size = size
-        self.cachedSymbols = {}
+        self._defaultSymbol = QgsSymbolV2.defaultSymbol(QGis.Point)##getDefaultSymbol(size)
+        self._symbol = QgsMarkerSymbolV2()
 
     def symbolForFeature(self, feature):
         idx = feature.fieldNameIndex(self.field)
         if idx != -1:
             code = feature.attributes()[idx]
-            if code in self.cachedSymbols:
-                return self.cachedSymbols[code]
-            symbol = symbolForCode(code, self.size) or getDefaultSymbol(self.size)
-            self.cachedSymbols[code] = symbol
-            return symbol
+            ret = symbolForCode(code, self.size, self._symbol)
+            if ret is None:
+                return self._defaultSymbol
+            else:
+                return self._symbol
         else:
-            return getDefaultSymbol(self.size)
+            return self._defaultSymbol
 
     def startRender(self, context, fields):
-        for s in self.cachedSymbols.values():
-            s.startRender(context)
+        self._symbol.startRender(context)
+        self._defaultSymbol.startRender(context)
 
     def stopRender(self, context):
-        for s in self.cachedSymbols.values():
-            s.stopRender(context)
+        self._symbol.stopRender(context)
+        self._defaultSymbol.stopRender(context)
 
     def usedAttributes(self):
         return self.fields
 
-    def symbols2(self, context):
-        return self.cachedSymbols.values()
+    def symbols(self, context):
+        return [self._symbol, self._defaultSymbol]
 
     def clone(self):
         return MilStd2525Renderer(self.size, self.field, self.fields)

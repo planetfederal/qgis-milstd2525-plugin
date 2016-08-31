@@ -30,10 +30,10 @@ import fnmatch
 from qgis.core import QgsMarkerSymbolV2, QgsSvgMarkerSymbolLayerV2
 
 
-def symbolForCode(code, size):
+def symbolForCode(code, size, symbol):
     try:
-        symbol = QgsMarkerSymbolV2()
-        symbol.takeSymbolLayer(0)
+        for i in range(symbol.symbolLayerCount()):
+            symbol.takeSymbolLayer(0)
 
         echelonCode = code[3] + code[8:10]
         echelonLayer = getSymbolLayer('Echelon', echelonCode, size)
