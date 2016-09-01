@@ -83,7 +83,7 @@ def symbolForCode(code, size, symbol):
 
         if symbol.symbolLayerCount() == 0:
             symbol = None
-    except:
+    except Exception, e:
         symbol = None
 
     return symbol
