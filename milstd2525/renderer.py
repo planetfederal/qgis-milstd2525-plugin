@@ -87,12 +87,9 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         r.cached = self.cached
         return r
 
-    def dump(self):
-        return 'MILSTD2525'
-
     def save(self, doc):
         elem = doc.createElement('renderer-v2')
-        elem.setAttribute('type', 'MILSTD2525')
+        elem.setAttribute('type', 'MilStd2525Renderer')
         elem.setAttribute('size', self.size)
         elem.setAttribute('field', self.field)
         return elem
