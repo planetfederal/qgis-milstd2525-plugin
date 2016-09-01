@@ -46,53 +46,45 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         self.field = field
         self.size = size
         self._defaultSymbol = getDefaultSymbol(size)
-        self._symbol = QgsMarkerSymbolV2()
         self.cached = {}
-        self.started = set()
 
     def symbolForFeature(self, feature):
         idx = feature.fieldNameIndex(self.field)
         if idx != -1:
             code = feature.attributes()[idx]
-            if code in self.cached and code in self.started:
-                self.cached[code].setSize(self.size)
-                return self.cached[code]
-            ret = symbolForCode(code, self.size, self._symbol)
-            if ret is None:
-                self._defaultSymbol.setSize(self.size)
-                self.cached[code] = self._defaultSymbol
-                return self._defaultSymbol
-            else:
-                self.cached[code] = self._symbol.clone()
-                return self._symbol
-
+            if code not in self.cached:
+                symbol = symbolForCode(code, self.size)
+                if symbol is None:
+                    self._defaultSymbol.setSize(self.size)
+                    self.cached[code] = self._defaultSymbol
+                else:
+                    self.cached[code] = symbol.clone()
+                    self.cached[code].startRender(self.context)
+            self.cached[code].setSize(self.size)
+            return self.cached[code]
         else:
             return self._defaultSymbol
 
     def startRender(self, context, fields):
-        print self.cached
+        self.context = context
         for k,v in self.cached.iteritems():
             v.startRender(context)
-            self.started.add(k)
-        self._symbol.startRender(context)
         self._defaultSymbol.startRender(context)
 
     def stopRender(self, context):
         for s in self.cached.values():
             s.stopRender(context)
-        self._symbol.stopRender(context)
         self._defaultSymbol.stopRender(context)
 
     def usedAttributes(self):
         return [self.field]
 
     def symbols(self, context):
-        return [self._symbol, self._defaultSymbol]
+        return self.cached.values()
 
     def clone(self):
         r = MilStd2525Renderer(self.size, self.field)
         r.cached = self.cached
-        r.started = self.started
         return r
 
     def dump(self):

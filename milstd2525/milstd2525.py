@@ -30,8 +30,9 @@ import fnmatch
 from qgis.core import QgsMarkerSymbolV2, QgsSvgMarkerSymbolLayerV2
 
 
-def symbolForCode(code, size, symbol):
+def symbolForCode(code, size):
     try:
+        symbol = QgsMarkerSymbolV2()
         for i in range(symbol.symbolLayerCount()):
             symbol.takeSymbolLayer(0)
 
