@@ -55,9 +55,11 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         if idx != -1:
             code = feature.attributes()[idx]
             if code in self.cached and code in self.started:
+                self.cached[code].setSize(self.size)
                 return self.cached[code]
             ret = symbolForCode(code, self.size, self._symbol)
             if ret is None:
+                self._defaultSymbol.setSize(self.size)
                 self.cached[code] = self._defaultSymbol
                 return self._defaultSymbol
             else:
