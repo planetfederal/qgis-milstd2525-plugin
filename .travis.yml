@@ -1,32 +1,29 @@
 sudo: required
-addons:
-  hosts:
-    - boundless-test
 services:
-    - docker
-endv:
+- docker
+env:
   global:
-    - PLUGIN_NAME=milstd2525
+  - PLUGIN_NAME=milstd2525
   matrix:
-    - QGIS_VERSION_TAG=master
-    - QGIS_VERSION_TAG=release
+  - QGIS_VERSION_TAG=master_2
+  - QGIS_VERSION_TAG=release
+  - QGIS_VERSION_TAG=master
+matrix:
+  allow_failures:
+  - env: QGIS_VERSION_TAG=master
 before_install:
-    - docker pull elpaso/qgis-testing-environment:${QGIS_VERSION_TAG}
-    - docker tag elpaso/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
+- docker pull elpaso/qgis-testing-environment:${QGIS_VERSION_TAG}
+- docker tag elpaso/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
 install:
-    - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis-testing-environment
-    - sleep 10
-
-    # Setup QGIS to avoid modals and install test auth db
-    - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
-
-    # Build the plugin
-    - docker exec -it qgis-testing-environment sh -c "pip install paver"
-    - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup"
-    - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/${PLUGIN_NAME} /root/.qgis2/python/plugins/${PLUGIN_NAME}"
-
+- docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis-testing-environment
+- sleep 10
+- docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
+- docker exec -it qgis-testing-environment sh -c "pip install paver"
+- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup"
+- docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/${PLUGIN_NAME}
+  /root/.qgis2/python/plugins/${PLUGIN_NAME}"
 script:
-    # Run the unit tests
-    # This plugin has not yet any unit tests
-    - docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
-
+- docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
+notifications:
+  slack:
+    secure: GHkn1mGlrwgRgGSZzo4ZjWCBpt+dLVQ9G9Mk4dGzIuNXBqZS+I1mMvrSH2sUb2zMJjpjxwSP5u2FF7VCH1u1fqTVrleVe/IW2B+XH8IaGbESwwxw+wedlmr8s2nLuSL2PfBsVHBDmY9aQHnDbA65HRHDsfWs4uSZD3pxCk8GS8Fb2oZ6SQeqbEhN6Njpeg+LnxJgqJmrVZ/tvuwQqJblPsPuGaQAdfi0v+ykZZMt3vi3jARzzi+dhh1VvLEVIDQY1se/Q1We56dUatDafIYDzj55UB9uMVYnFjq4WPWUg+dME+F6qtNitgWAjDQz7+Zz7QgAUOtkuYETYf7kY3SNH1TW2b+lBIaXC1y7mSvh3pDCi+uZPWQ+xp8K4RhYqJMHqa/dQk5xI9Nfd/9PCO87OSDR5UyRMiZqfVqNiiZVAtD0PJW80f9PCM5eqFEYNtV2bzzwewSeKsb79TEZX8Hdblq/MPcYQVUANOf/F+UnlKosRhhrLpXR8pGeDO9ExnWjZkdbw/P0MxMGF/5UcaSEh6qb3ds4rjmK+RnjITzGAMySHh1ZZrsv5kS8xKUh81sXA74FJF1tWla3UyeYsYZ8KWTHNzUiZssBpRYiSA4QmoVDt/5HQWxPOPzRxlYu/XNgUkK7eMObJXiCkza41B1IyvRVeVZdcCxv/c4x0Z5R+b8=
