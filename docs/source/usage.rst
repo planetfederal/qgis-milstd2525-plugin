@@ -12,9 +12,9 @@ The |current_plugin| adds support for MIL-STD-2525 - a standard for joint milita
 Custom Renderer
 ---------------
 
-The custom renderer will allow to style vector point layers using SIDC codes from one of the layer's attributes.
+The custom renderer will allow styling vector point layers using SIDC codes from one of the layer's attributes.
 
-In the :guilabel:`Style` tab of the :guilabel:`Layer properties` dialog, you will find a new renderer named "MIL-STD-2525".
+In the :guilabel:`Style` tab of the :guilabel:`Layer Properties` dialog, you will find a new renderer named *MIL-STD-2525*.
 
 .. figure:: img/rendererEntry.png
 
@@ -34,9 +34,9 @@ Features with a NULL or invalid SIDC code in the selected field, a default marke
 Custom edit widget
 ------------------
 
-The custom field edit widget helps entering SIDC codes in the feature form and attribute table, with an marker preview.
+The custom field edit widget helps to enter SIDC codes in the feature form and attribute table, with a marker preview.
 
-To set the edit widget to a layer's field, open the :guilabel:`Layer Properties` dialog of the layer, go to the :guilabel:`Fields` tab, and in the :guilabel:`Fields` group, for the field that you want to use to store SIDC codes (in the image below, the field named *SIDC*), click on the button in the :guilabel:`Edit widget` column. The :guilabel:`Edit Widget Properties` dialog will open. Select the :guilabel:`SIDC code editor` option from the list of widgets and click :guilabel:`OK`. Finally, close the :guilabel:`Layer Properties window by clicking :guilabel:`OK`.
+To set the edit widget to a layer's field, open the :guilabel:`Layer Properties` dialog of the layer, and go to the :guilabel:`Fields` tab. In the :guilabel:`Fields` group, for the field that you want to use to store SIDC codes, click on the button in the :guilabel:`Edit widget` column. The :guilabel:`Edit Widget Properties` dialog will open. Select the :guilabel:`SIDC code editor` option from the list of widgets and click :guilabel:`OK`. Finally, close the :guilabel:`Layer Properties` dialog by clicking :guilabel:`OK`.
 
 .. figure:: img/set_custom_widget.png
 

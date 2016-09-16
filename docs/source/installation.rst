@@ -4,7 +4,7 @@
 Installation
 ============
 
-The easiest way to install |current_plugin| is to use the **Boundless Connect plugin**, a QGIS plugin that will provide you access to Boundless's plugins and other content.
+The easiest way to install the |current_plugin| is to use the **Boundless Connect plugin**, a QGIS plugin that will provide you access to Boundless's plugins and other content.
 
 .. note::
 
@@ -23,7 +23,7 @@ After entering the Boundless Connect credentials, the QGIS Plugin Manager will o
 
 .. figure:: img/not_installed_boundless.png
 
-   QGIS plugin manager showing Boundless not installed plugins
+   QGIS plugin manager showing Boundless's not installed plugins
 
 .. note::
 
@@ -47,7 +47,7 @@ Install from a ZIP package
 
 If you have previously downloaded the plugin ZIP package from the `Boundless QGIS Plugin Repository`_ page, you can easily install it using the *Install plugin from ZIP* tool, which is available with Boundless Connect plugin.
 
-Go to :menuselection:`Plugins --> Install plugin from ZIP` menu item. Then, browse to and select the ZIP file, and click :guilabel:`Open` it. If everything went well, you should see a message, on the top of the map canvas, stating that "Your plugin was successfuly installed".
+Go to :menuselection:`Plugins --> Install plugin from ZIP` menu item. Then, browse to and select the ZIP file, and click :guilabel:`Open` it. If everything went well, you should see a message, on the top of the map canvas, stating that "Your plugin was successfully installed".
 
 .. note::
 
