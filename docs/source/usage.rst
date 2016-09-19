@@ -1,13 +1,13 @@
 Usage
 =====
 
-The |current_plugin| adds support for MIL-STD-2525 - a standard for joint military symbology - in QGIS.
+The |current_plugin| adds support for MIL-STD-2525 - a standard for joint military symbology - in QGIS. In MIL-STD-2525, symbols are composed of several levels of information (for example, *StandardIdentity1*, *Status*, *Icon*, and so on). Each level's options are represented by a unique set of one or more digits. These specific codes are concatenated into a unique Symbol Identification Code (SIDC) that will determine the look of the final symbol.
 
 ̣This plugin adds two new capabilities to QGIS:
 
 * A custom renderer for styling vector layers with SIDC codes in one of its attributes.
 
-* Custom field edit widget for entering SIDC codes.
+* Custom field edit widget for creating and entering SIDC codes by showing all levels of information and their respective options.
 
 Custom Renderer
 ---------------
