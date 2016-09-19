@@ -31,9 +31,9 @@ After entering the Boundless Connect credentials, the QGIS Plugin Manager will o
 
 If you have entered your Boundless Connect credentials before, or if Boundless Connect plugin was configured to use a local directory-based repository instead of the remote one, there is no need to use Boundless Connect Login tool. Instead, go directly to :menuselection:`Plugins --> Manage and install plugins`, click the :guilabel:`Not installed` tab, and start typing the |current_plugin| name in the :guilabel:`Search` field. Once you locate |current_plugin| in the list of uninstalled plugins, select it and click the :guilabel:`Install Plugin` button.
 
-.. figure:: img/mil-std-2525_install.png
+.. figure:: img/current_plugin_install.png
 
-   QGIS plugin manager with MIL-STD-2525 plugin ready to install
+   QGIS plugin manager with |current_plugin| ready to install
 
 If everything goes well, you should see a message "Plugin installed successfully" on the top of the plugin manager.
 
@@ -53,11 +53,14 @@ Go to :menuselection:`Plugins --> Install plugin from ZIP` menu item. Then, brow
 
    You can download Boundless QGIS plugins ZIP packages from the *Browse the Repository* section in the `Boundless QGIS Plugin Repository`_ page.
 
-.. warning::
-
-   Because this plugin adds a new renderer, after installation, you must **restart QGIS before you use it**.
-
 .. External links
 .. _Boundless QGIS Plugin Repository: http://qgis.boundlessgeo.com
 .. _Boundless Connect: http://connect.boundlessgeo.com/
 .. _Boundless Connect plugin's usage documentation: https://connect.boundlessgeo.com/docs/desktop/plugins/connect/usage.html
+
+Post installation notes
+-----------------------
+
+.. note::
+
+   Because this plugin adds a new renderer, you will have to **restart QGIS before you can use it**.
