@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'MIL-STD-2525 QGIS Plugin'
-copyright = u'2016, Boundless Spatial'
+copyright = u'2016 Boundless Spatial, Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
