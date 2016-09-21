@@ -54,3 +54,4 @@ docs/_build/
 target/
 ext-libs
 ext-src
+travis_secrets.tar.gz
