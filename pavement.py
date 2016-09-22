@@ -69,6 +69,9 @@ def install_devtools():
 
 
 @task
+@cmdopts([
+    ('tests', 't', 'Package tests with plugin'),
+])
 def package(options):
     """Create plugin package
     """

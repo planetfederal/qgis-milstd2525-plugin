@@ -28,3 +28,29 @@ This repository uses external repositories as submodules. Therefore in order to 
 Also, to update the submodules whenever there are changes in the remote repositories one should do:
 
 `git submodule update --remote`
+
+## Current status
+
+Both renderer and custom widget are implemented.
+
+The renderer raises an exception when it is deselected in the properties windows.
+Work can be resumed after closing the error dialog, and it does not crash QGIS.
+
+The error is related to the rendered object being garbage collected by QGIS,
+and is likely to be a SIP issue.
+
+## Further info
+
+Here's some extra info to continue developing/testing this plugin.
+
+A generator of markers from SIDC codes can be found [here](http://spatialillusions.com/unitgenerator.html)
+
+This tool is useful for checking that markers are correctly rendered and the SDIC codes are being correctly interpreted.
+
+---
+
+Markers single parts, from which full markers are created, were taken from this project:
+
+[https://github.com/Esri/joint-military-symbology-xml](https://github.com/Esri/joint-military-symbology-xml)
+
+Additional info about the icons themselves and the coding of markers can be found there as well.
