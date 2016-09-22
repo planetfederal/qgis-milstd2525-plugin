@@ -24,12 +24,12 @@ options(
         skip_exclude = []
     ),
 
-    plugin_server = Bunch(
-        server = 'qgis.boundlessgeo.com',
-        port = 80,
-        protocol = 'http',
-        end_point = '/RPC2/'
+    sphinx = Bunch(
+        docroot = 'doc',
+        sourcedir = 'source',
+        builddir = 'build'
     )
+
 )
 
 
@@ -72,6 +72,7 @@ def install_devtools():
 def package(options):
     """Create plugin package
     """
+    builddocs(options)
     package_file = options.plugin.package_dir / ('%s.zip' % options.plugin.name)
     with zipfile.ZipFile(package_file, 'w', zipfile.ZIP_DEFLATED) as zf:
         _make_zip(zf, options)
@@ -217,3 +218,15 @@ def _make_zip(zipFile, options):
             relpath = os.path.relpath(root)
             zipFile.write(path(root) / f, path(relpath) / f)
         filter_excludes(root, dirs)
+
+    for root, dirs, files in os.walk(options.sphinx.builddir):
+        for f in files:
+            relpath = os.path.join(options.plugin.name, "docs", os.path.relpath(root, options.sphinx.builddir))
+            zipFile.write(path(root) / f, path(relpath) / f)
+ 
+@task
+def builddocs(options):
+    cwd = os.getcwd()
+    os.chdir(options.sphinx.docroot)
+    sh("make html")
+    os.chdir(cwd)
