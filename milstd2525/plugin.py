@@ -24,11 +24,14 @@ __copyright__ = '(C) 2015-2016 Boundless, http://boundlessgeo.com'
 
 __revision__ = '$Format:%H$'
 
-from qgis.core import QgsRendererV2Registry
+from PyQt4 import QtGui, QtCore
+from qgis.core import QgsRendererV2Registry, QgsApplication
 from qgis.gui import QgsEditorWidgetRegistry
 
 from renderer import MilStd2525RendererMetadata
 from sidcwidgetwrapper import SIDCWidgetWrapperFactory
+
+import webbrowser
 
 class MilStd2525Plugin:
     def __init__(self, iface):
@@ -46,6 +49,13 @@ class MilStd2525Plugin:
         QgsRendererV2Registry.instance().addRenderer(self._rendererMetadata)
         QgsEditorWidgetRegistry.instance().registerWidget('SIDC code editor', self._widgetWrapperFactory)
 
+    def initGui(self):
+        helpIcon = QgsApplication.getThemeIcon('/mActionHelpAPI.png')
+        self.helpAction = QtGui.QAction(helpIcon, "MIL-STD-2525 Help", self.iface.mainWindow())
+        self.helpAction.setObjectName("milstd2525Help")
+        self.helpAction.triggered.connect(lambda: webbrowser.open_new("file://" + os.path.join(os.path.dirname(__file__), "docs", "html", "index.html")))
+        self.iface.addPluginToMenu("MIL-STD-2525", self.helpAction)        
+
     def unload(self):
         QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')
 
@@ -55,6 +65,3 @@ class MilStd2525Plugin:
             removeTestModule(testerplugin, 'MIL-STD-2525')
         except:
             pass
-
-    def initGui(self):
-        pass
