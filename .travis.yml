@@ -17,14 +17,14 @@ matrix:
   allow_failures:
   - env: QGIS_VERSION_TAG=master
 before_install:
-- docker pull elpaso/qgis-testing-environment:${QGIS_VERSION_TAG}
-- docker tag elpaso/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
+- docker pull boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
+- docker tag boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
 install:
 - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis-testing-environment
 - sleep 10
 - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker exec -it qgis-testing-environment sh -c "pip install paver"
-- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup"
+- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
 - docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/${PLUGIN_NAME} /root/.qgis2/python/plugins/${PLUGIN_NAME}"
 script:
 - docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
@@ -40,7 +40,6 @@ after_success:
 - mv ssh_config /home/travis/.ssh/config
 - chmod 600 /home/travis/.ssh/id_rsa.qgisrepoguest
 - chmod 600 /home/travis/.ssh/config
-- docker exec qgis-testing-environment sh -c "cd /tests_directory && paver package --test"
 - export RELEASE_ZIPNAME=${PLUGIN_NAME}.zip
 - echo "Uploading ${RELEASE_ZIPNAME} to QGIS Dev..."
 - scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${RELEASE_ZIPNAME}
