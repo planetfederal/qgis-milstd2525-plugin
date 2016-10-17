@@ -17,32 +17,33 @@ matrix:
   allow_failures:
   - env: QGIS_VERSION_TAG=master
 before_install:
-- docker pull elpaso/qgis-testing-environment:${QGIS_VERSION_TAG}
-- docker tag elpaso/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
+- docker pull boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
+- docker tag boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
 install:
 - docker run -d --name qgis-testing-environment -v ${TRAVIS_BUILD_DIR}:/tests_directory -e DISPLAY=:99 qgis-testing-environment
 - sleep 10
 - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker exec -it qgis-testing-environment sh -c "pip install paver"
-- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup"
-- docker exec -it qgis-testing-environment sh -c "ln -s /tests_directory/${PLUGIN_NAME} /root/.qgis2/python/plugins/${PLUGIN_NAME}"
+- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
 script:
 - docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
 notifications:
   slack:
     secure: nPHSxDQVwwB/jJOT0pkEMQaM/Mns8SEgY7Dam+rm0ZaI3FUdAp7WJq+yf8CURToO1pM9iPGSpTv0x4JYeExOTlUPnLVA9K9U/cTrBoK5C+eKFCPHLNIOW5OEIHn7z3Ku+VW/PLC0ZGNwPJclRmZvNUxQnouCnGYFTCthDG5vCjcTzvwrsJuyw5+HLzfYph6JXTziCnCVlCqrc33wkFdf97e+uo5k/poabj4QEMWjbMs/Fxe6te6mWTzG3OxBRXmCvlfPPsIFBC9/8wJxYgCJ9YrHAZXAGfLrf/QTLtGVD1NjcoTXHDIMu21sTOGqQ71/bkXgPQK2+vYudLbXryC75sfH1gem4oHiCC+15gMRL6duWOQmrJn8/9N3bF7Zj7bW6jDyszt8RJYAPklWx6r5h85EVO8actLMzDzOu+NFp0bM6ASxCTlwa87vfkRoM7vbR+WsHeOu+08+C2UhM5+KachzVUOFErcZE8aYG+9ZByiTmQZTTcSTiUOOHWZnFF0CexOUyqJYlXvPFLIeCbgGJ6A7KMJPhYat+RwIEcVPuOqdxwG09Wnzs2TAtr132oJ3dCX9Nqs65BgjrKCuahL1PL6IZvLDRkWPOmD2ELVq4u7s+hrGUmdB2Uiow2GqDM7d5lphOYgsH99srnFprNWtk6KmuEpPGK9OuVMgHF9xm+E=
 after_success:
-- mkdir /home/travis/.ssh/
-- chmod 700 /home/travis/.ssh/
-- openssl aes-256-cbc -K $encrypted_e0d17a9dded8_key -iv $encrypted_e0d17a9dded8_iv -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
-- tar xzvf travis_secrets.tar.gz
-- mv id_rsa.qgisrepoguest /home/travis/.ssh/id_rsa.qgisrepoguest
-- mv ssh_config /home/travis/.ssh/config
-- chmod 600 /home/travis/.ssh/id_rsa.qgisrepoguest
-- chmod 600 /home/travis/.ssh/config
-- docker exec qgis-testing-environment sh -c "cd /tests_directory && paver package --test"
-- export RELEASE_ZIPNAME=${PLUGIN_NAME}.zip
-- echo "Uploading ${RELEASE_ZIPNAME} to QGIS Dev..."
-- scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${RELEASE_ZIPNAME}
-- export GIT_REV=$(git rev-parse --short HEAD)
-- ssh qgisrepoguest "${UPDATER} update --dev --role DesktopPartner,DesktopDeveloper --git-hash ${GIT_REV} ${RELEASE_ZIPNAME}"
+- |
+    if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then
+        mkdir /home/travis/.ssh/
+        chmod 700 /home/travis/.ssh/
+        openssl aes-256-cbc -K $encrypted_e0d17a9dded8_key -iv $encrypted_e0d17a9dded8_iv -in travis_secrets.tar.gz.enc -out travis_secrets.tar.gz -d
+        tar xzvf travis_secrets.tar.gz
+        mv id_rsa.qgisrepoguest /home/travis/.ssh/id_rsa.qgisrepoguest
+        mv ssh_config /home/travis/.ssh/config
+        chmod 600 /home/travis/.ssh/id_rsa.qgisrepoguest
+        chmod 600 /home/travis/.ssh/config
+        export RELEASE_ZIPNAME=${PLUGIN_NAME}.zip
+        echo "Uploading ${RELEASE_ZIPNAME} to QGIS Dev..."
+        scp ${PLUGIN_NAME}.zip qgisrepoguest:${UPLOADS}/${RELEASE_ZIPNAME}
+        export GIT_REV=$(git rev-parse --short HEAD)
+        ssh qgisrepoguest "${UPDATER} update --dev --role DesktopPartner,DesktopDeveloper --git-hash ${GIT_REV} ${RELEASE_ZIPNAME}"
+    fi

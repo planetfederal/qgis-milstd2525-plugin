@@ -30,7 +30,7 @@ from qgis.gui import QgsEditorWidgetRegistry
 
 from renderer import MilStd2525RendererMetadata
 from sidcwidgetwrapper import SIDCWidgetWrapperFactory
-
+import os
 import webbrowser
 
 class MilStd2525Plugin:
