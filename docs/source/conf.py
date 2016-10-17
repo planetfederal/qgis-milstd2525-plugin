@@ -43,7 +43,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'MIL-STD-2525 QGIS Plugin'
+project = u'MIL-STD-2525'
 copyright = u'2016 Boundless Spatial, Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -113,7 +113,7 @@ html_theme_path = ['../themes']
 #html_title = None
 
 # A shorter title for the navigation bar.  Default is the same as html_title.
-#html_short_title = None
+html_short_title = project
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
@@ -196,7 +196,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'MIL-STD-2525QGISPlugin.tex', u'MIL-STD-2525 QGIS Plugin Documentation',
+  ('index', 'MIL-STD-2525QGISPlugin.tex', u'MIL-STD-2525 Documentation',
    u'Victor Olaya', 'manual'),
 ]
 
@@ -223,7 +223,7 @@ latex_documents = [
 # Substitutions
 rst_epilog = """
 .. |BLQGIS| replace:: *Boundless Desktop*
-.. |current_plugin| replace:: *MIL-STD-2525 plugin*
+.. |current_plugin| replace:: *MIL-STD-2525*
 """
 
 # -- Options for manual page output ---------------------------------------
@@ -231,7 +231,7 @@ rst_epilog = """
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'mil-std-2525qgisplugin', u'MIL-STD-2525 QGIS Plugin Documentation',
+    ('index', 'mil-std-2525qgisplugin', u'MIL-STD-2525 Documentation',
      [u'Victor Olaya'], 1)
 ]
 
@@ -245,7 +245,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'MIL-STD-2525QGISPlugin', u'MIL-STD-2525 QGIS Plugin Documentation',
+  ('index', 'MIL-STD-2525QGISPlugin', u'MIL-STD-2525 Documentation',
    u'Victor Olaya', 'MIL-STD-2525QGISPlugin', 'One line description of project.',
    'Miscellaneous'),
 ]

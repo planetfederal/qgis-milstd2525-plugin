@@ -6,8 +6,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-MIL-STD-2525 QGIS plugin documentation
-======================================
+MIL-STD-2525 documentation
+==========================
+
+The |current_plugin| plugin is a plugin for QGIS to ease the use of MIL-STD-2525 military standard for symbology.
 
 Documentation content:
 
