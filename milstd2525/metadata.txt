@@ -9,7 +9,7 @@ version=1.0
 author=Boundless (Victor Olaya)
 email=info@boundlessgeo.com
 
-icon=icons/desktop.png
+icon=icons/desktop.svg
 
 tags=boundless,MIL-STD-2525,NATO APP-6,SIDC,symbology,MOLE
 
