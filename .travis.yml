@@ -24,8 +24,8 @@ install:
 - sleep 10
 - docker exec -it qgis-testing-environment sh -c "qgis_setup.sh ${PLUGIN_NAME}"
 - docker exec -it qgis-testing-environment sh -c "pip install paver"
-- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
 script:
+- docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
 - docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
 notifications:
   slack:
