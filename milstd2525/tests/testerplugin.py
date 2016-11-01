@@ -65,7 +65,7 @@ def functionalTests():
     editWidgetTest = Test("Test code edit widget")
     editWidgetTest.addStep("Open project", _openProject)
     #editWidgetTest.addStep("Open layer properties", _openLayerProperties)
-    editWidgetTest.addStep("Set the editor of the SDIC field to 'SDIC code editor")
+    editWidgetTest.addStep("Set the edit widget of the SDIC field to 'SDIC code editor'")
     editWidgetTest.addStep("Toggle editing", _startEditing)
     editWidgetTest.addStep("Open attributes table", _openAttributesTable)
     editWidgetTest.addStep("Edit a value in the table using the code editor widget and check that it works correctly")
