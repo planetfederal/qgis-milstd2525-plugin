@@ -5,7 +5,7 @@ about=<p>MIL-STD-2525/NATO APP-6 is a standard for military symbol sets derived 
 category=Plugins
 qgisMinimumVersion=2.0
 version=1.0
-#roles=desktop-qgis-plugin-2525
+roles=desktop-qgis-plugin-2525
 
 author=Boundless (Victor Olaya)
 email=info@boundlessgeo.com
