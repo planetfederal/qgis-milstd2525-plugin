@@ -112,6 +112,7 @@ class MilStd2525Test(unittest.TestCase):
         deleteTempFolder()
 
     def checkSymbolRendering(self,symbol, expected):
+        """Check symbols rendering"""
         expectedFilename = os.path.join(os.path.dirname(__file__), "expected", expected + ".png")
         image = symbol.bigSymbolPreviewImage()
         renderedFilename = tempFilename("png")
@@ -123,17 +124,21 @@ class MilStd2525Test(unittest.TestCase):
         self.assertTrue(expectedHash, renderedHash)
 
     def testDefaultSymbol(self):
+        """Check that default symbol is correct"""
         self.checkSymbolRendering(getDefaultSymbol(40),"default_40")
         self.checkSymbolRendering(getDefaultSymbol(80), "default_80")
 
     def testWrongCode(self):
+        """Check wrong SIDC code handling"""
         self.assertIsNone(symbolForCode("wrongcode", 40))
 
     def testRendering(self):
+        """Test code rendering"""
         self.checkSymbolRendering(symbolForCode("10164011521200001600",40), "10164011521200001600_40")
         self.checkSymbolRendering(symbolForCode("10164011521200001600",80), "10164011521200001600_80")
 
     def testRendererSavedToProject(self):
+        """Test that renderer correctly saved in the project"""
         projfile = os.path.join(os.path.dirname(__file__), "data", "project.qgs")
         iface.addProject(projfile)
         layer = layerFromName("2525")
