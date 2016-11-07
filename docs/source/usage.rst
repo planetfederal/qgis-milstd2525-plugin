@@ -44,6 +44,15 @@ Now, if you open the attributes table of the layer and set the layer to edit mod
 
 .. figure:: img/customWidget.png
 
+.. warning::
+
+    On OsX/macOS it is sometimes tricky to have QGIS edit widgets work as expected. In the context of the MIL-STD2525 plugin is sometimes hard to have the widget button work immediately. The workaround is first needed to double click in the table cell as if it would be necessary to manually edit the symbology code. The table cell gets then a blue frame, after that the widget button gets a blue background and becomes clickable.
+    
+.. figure:: img/mil_mac01.png
+
+.. figure:: img/mil_mac02.png
+
+
 Clicking on the button will show the preview dialog, that you can use to enter a code and preview the corresponding marker.
 
 .. figure:: img/markerPreview.png
