@@ -65,7 +65,7 @@ def functionalTests():
     editWidgetTest = Test("Test code edit widget")
     editWidgetTest.addStep("Open project", _openProject)
     #editWidgetTest.addStep("Open layer properties", _openLayerProperties)
-    editWidgetTest.addStep("Set the edit widget of the SDIC field to 'SDIC code editor'")
+    editWidgetTest.addStep("Open layer properties, go to the 'Fields' tab  and set the edit widget of the SDIC field to 'SDIC code editor'")
     editWidgetTest.addStep("Toggle editing", _startEditing)
     editWidgetTest.addStep("Open attributes table", _openAttributesTable)
     editWidgetTest.addStep("Edit a value in the table using the code editor widget and check that it works correctly")
@@ -73,8 +73,9 @@ def functionalTests():
 
     rendererTest = Test("Renderer test")
     rendererTest.addStep("Open project", _openProject)
-    rendererTest.addStep("Open layer properties", _openLayerProperties)
-    rendererTest.addStep("Set renderer of the layer to 'MIL-STD-2525 renderer'. Verify it renders correctly")
+    rendererTest.addStep("Open layer properties. Go to the 'Style' tab and set renderer of the layer "
+                         "to 'MIL-STD-2525' renderer. Close dialog by pressing 'OK' button", _openLayerProperties)
+    rendererTest.addStep("Verify that layer rendered correctly.")
 
     sizeChangeTest = Test("Size change test")
     sizeChangeTest.addStep("Open project", _openProject)
