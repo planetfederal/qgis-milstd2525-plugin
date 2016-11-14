@@ -61,6 +61,7 @@ def functionalTests():
         r = layer.rendererV2()
         r.size = 80
         layer.triggerRepaint()
+        iface.mapCanvas().setExtent(layer.extent())
 
     editWidgetTest = Test("Test code edit widget")
     editWidgetTest.addStep("Open project", _openProject)
@@ -79,9 +80,13 @@ def functionalTests():
 
     sizeChangeTest = Test("Size change test")
     sizeChangeTest.addStep("Open project", _openProject)
-    sizeChangeTest.addStep("Set renderer", _setRenderer)
+    #sizeChangeTest.addStep("Set renderer", _setRenderer)
+    sizeChangeTest.addStep("Open layer properties. Go to the 'Style' tab and set renderer of the layer "
+                         "to 'MIL-STD-2525' renderer. Close dialog by pressing 'OK' button", _openLayerProperties)
     sizeChangeTest.addStep("Verify that the layer is rendered with MIL-STD-2525 symbology", isVerifyStep=True)
-    sizeChangeTest.addStep("Change size", _changeSize)
+    #sizeChangeTest.addStep("Change size", _changeSize)
+    sizeChangeTest.addStep("Open layer properties. Go to the 'Style' tab and set symbol size to 80. "
+                           "Close dialog by pressing 'OK' button", _openLayerProperties)
     sizeChangeTest.addStep("Verify that the size of symbols has changed")
 
     return [editWidgetTest, rendererTest, sizeChangeTest]
