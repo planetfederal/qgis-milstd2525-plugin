@@ -8,28 +8,26 @@ The easiest way to install the |current_plugin| is to use the **Boundless Connec
 
 .. note::
 
-   If you are using |BLQGIS|, the *Boundless Connect plugin* should be installed by default in its QGIS. Otherwise, if you are using QGIS from one of the community's installers, you can install the *Boundless Connect plugin* by setting up the `Boundless QGIS Plugin Repository`_ in QGIS's plugin manager.
+   If you are using |BLQGIS|, the *Boundless Connect plugin* is installed by default in its QGIS. Otherwise, if you are using QGIS from one of the community's installers, you can install the *Boundless Connect plugin* by setting up the `Boundless QGIS Plugin Repository`_ in QGIS's plugin manager.
 
 Install from repository
 -----------------------
 
-If your organization works with Boundless's remote plugin repository, you will need to enter your `Boundless Connect`_ credentials using *Boundless Connect Login* tool. Go to the :menuselection:`Plugins --> Boundless Connect Login` menu. Enter your :guilabel:`Email` and :guilabel:`Password` and click :guilabel:`Login`.
+If your organization works with Boundless's remote plugin repository, you will need to enter your `Boundless Connect`_ credentials using the *Boundless Connect* panel. If the panel is not visible, click the :menuselection:`Plugins --> Boundless Connect` menu item to make it visible. Enter your :guilabel:`Email` and :guilabel:`Password` and click :guilabel:`Login`.
 
-.. figure:: img/connect-tool.png
+.. figure:: img/connect-dock.png
 
    Boundless Connect login dialog
 
-After entering the Boundless Connect credentials, the QGIS Plugin Manager will open, showing only the uninstalled Boundless plugins available, which makes it easier to find and install Boundless's plugins.
+After entering the Boundless Connect credentials, the search panel will show up. Type plugin's name in the :guilabel:`Search` field and press :kbd:`Enter` to search for it.
 
-.. figure:: img/not_installed_boundless.png
+.. figure:: img/connect-search-plugin.png
 
-   QGIS plugin manager showing Boundless's not installed plugins
+   Boundless Connect login dialog
 
-.. note::
+Click the plugin search result title and the plugin will be installed.
 
-   The latter process is a one-time operation for all Boundless's plugins installation, as your credentials will be securely saved within QGIS authentication database for future use. For more information on this subject, please consult the `Boundless Connect plugin's usage documentation`_
-
-If you have entered your Boundless Connect credentials before, or if Boundless Connect plugin was configured to use a local directory-based repository instead of the remote one, there is no need to use Boundless Connect Login tool. Instead, go directly to :menuselection:`Plugins --> Manage and install plugins`, click the :guilabel:`Not installed` tab, and start typing the |current_plugin| name in the :guilabel:`Search` field. Once you locate |current_plugin| in the list of uninstalled plugins, select it and click the :guilabel:`Install Plugin` button.
+As an alternative, if you have entered your Boundless Connect credentials before, you can use QGIS's plugin manager by going to :menuselection:`Plugins --> Manage and install plugins`, click the :guilabel:`Not installed` tab, and start typing the |current_plugin| name in the :guilabel:`Search` field. Once you locate |current_plugin| in the list of uninstalled plugins, select it and click the :guilabel:`Install Plugin` button.
 
 .. figure:: img/current_plugin_install.png
 
@@ -37,9 +35,15 @@ If you have entered your Boundless Connect credentials before, or if Boundless C
 
 If everything goes well, you should see a message "Plugin installed successfully" on the top of the plugin manager.
 
+If Boundless Connect plugin was configured to use a local directory-based repository instead of the remote one, then you don't need to enter any credentials, and you can go directly to :menuselection:`Plugins --> Manage and install plugins`.
+
 .. note::
 
-   If the |current_plugin| is not visible in the *Not Installed* list, maybe it was installed already. Check the *Installed* list and make sure the plugin is activated by selecting the respective checkbox.
+   Login is a one-time operation for all Boundless's plugins installation, as your credentials will be securely saved within QGIS authentication database for future use. For more information on this subject, please consult the `Boundless Connect plugin's usage documentation`_
+
+.. note::
+
+   If the |current_plugin| is not visible in the *Not Installed* list, maybe it was installed already. Check the *Installed* list and make sure the plugin is activated by enabling the respective checkbox.
 
 
 Install from a ZIP package
