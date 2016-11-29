@@ -46,7 +46,7 @@ else:
 
 from qgis.gui import QgsFieldProxyModel
 
-from milstd2525.milstd2525 import symbolForCode, getDefaultSymbol
+from milstd2525.milstd2525symbology import symbolForCode, getDefaultSymbol
 
 
 pluginPath = os.path.dirname(__file__)

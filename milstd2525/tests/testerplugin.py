@@ -3,6 +3,7 @@ from builtins import str
 # https://github.com/boundlessgeo/qgis-tester-plugin
 
 import os
+import sys
 import unittest
 import tempfile
 import shutil

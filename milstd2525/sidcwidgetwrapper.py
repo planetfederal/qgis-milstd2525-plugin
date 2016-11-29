@@ -33,7 +33,7 @@ from qgis.core import NULL
 from qgis.gui import QgsEditorWidgetWrapper, QgsEditorConfigWidget, QgsEditorWidgetFactory
 
 from milstd2525.sidcdialog import SIDCDialog
-from milstd2525.milstd2525 import symbolForCode
+from milstd2525.milstd2525symbology import symbolForCode
 
 
 pluginPath = os.path.dirname(__file__)

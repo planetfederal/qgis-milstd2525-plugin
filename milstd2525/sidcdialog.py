@@ -29,7 +29,7 @@ import os
 from qgis.PyQt import uic
 from qgis.PyQt.QtGui import QPixmap
 
-from milstd2525.milstd2525 import symbolForCode
+from milstd2525.milstd2525symbology import symbolForCode
 
 
 WIDGET, BASE = uic.loadUiType(
