@@ -26,7 +26,8 @@ install:
 - docker exec -it qgis-testing-environment sh -c "$PIP_EXECUTABLE install paver"
 script:
 - docker exec -it qgis-testing-environment sh -c "cd /tests_directory && paver setup && paver package --tests"
-- docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
+#- docker exec -it qgis-testing-environment sh -c "echo '${PLUGIN_NAME} has no unit tests yet, please create them and add here'"
+- docker exec -it qgis-testing-environment sh -c "qgis_testrunner.sh ${PLUGIN_NAME}.tests.testerplugin.run_tests"
 notifications:
   slack:
     secure: nPHSxDQVwwB/jJOT0pkEMQaM/Mns8SEgY7Dam+rm0ZaI3FUdAp7WJq+yf8CURToO1pM9iPGSpTv0x4JYeExOTlUPnLVA9K9U/cTrBoK5C+eKFCPHLNIOW5OEIHn7z3Ku+VW/PLC0ZGNwPJclRmZvNUxQnouCnGYFTCthDG5vCjcTzvwrsJuyw5+HLzfYph6JXTziCnCVlCqrc33wkFdf97e+uo5k/poabj4QEMWjbMs/Fxe6te6mWTzG3OxBRXmCvlfPPsIFBC9/8wJxYgCJ9YrHAZXAGfLrf/QTLtGVD1NjcoTXHDIMu21sTOGqQ71/bkXgPQK2+vYudLbXryC75sfH1gem4oHiCC+15gMRL6duWOQmrJn8/9N3bF7Zj7bW6jDyszt8RJYAPklWx6r5h85EVO8actLMzDzOu+NFp0bM6ASxCTlwa87vfkRoM7vbR+WsHeOu+08+C2UhM5+KachzVUOFErcZE8aYG+9ZByiTmQZTTcSTiUOOHWZnFF0CexOUyqJYlXvPFLIeCbgGJ6A7KMJPhYat+RwIEcVPuOqdxwG09Wnzs2TAtr132oJ3dCX9Nqs65BgjrKCuahL1PL6IZvLDRkWPOmD2ELVq4u7s+hrGUmdB2Uiow2GqDM7d5lphOYgsH99srnFprNWtk6KmuEpPGK9OuVMgHF9xm+E=

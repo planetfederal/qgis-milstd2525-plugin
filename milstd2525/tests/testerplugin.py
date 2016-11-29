@@ -127,6 +127,7 @@ def tempFilename(ext):
     filename = path + os.sep + str(time.time()) + "." + ext
     return filename
 
+
 class MilStd2525Test(unittest.TestCase):
 
     def tearDown(self):
@@ -180,12 +181,18 @@ class MilStd2525Test(unittest.TestCase):
             layerRenderer = layer.renderer()
         self.assertEquals("MilStd2525Renderer", layerRenderer.type())
 
+
 def pluginSuite():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(MilStd2525Test, 'test'))
     return suite
 
+
 def unitTests():
     _tests = []
     _tests.extend(pluginSuite())
     return _tests
+
+
+def run_tests():
+    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(pluginSuite())
