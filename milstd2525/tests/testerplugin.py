@@ -20,7 +20,7 @@ except ImportError:
 from qgis.core import QgsProject
 from qgis.utils import iface
 
-from milstd2525.milstd2525 import symbolForCode, getDefaultSymbol
+from milstd2525.milstd2525symbology import symbolForCode, getDefaultSymbol
 from milstd2525.renderer import MilStd2525Renderer
 
 try:
