@@ -25,42 +25,47 @@ from milstd2525.renderer import MilStd2525Renderer
 
 try:
     from qgistester.test import Test
-    from qgistester.utils import layerFromName
 except:
     pass
+
+
+def _layerFromName(name):
+    layers = list(QgsMapLayerRegistry.instance().mapLayers().values())
+    for layer in layers:
+        if layer.name() == name:
+            return layer
+
 
 def functionalTests():
     try:
         from qgistester.test import Test
-        from qgistester.utils import layerFromName
     except:
         return []
-
 
     def _openProject():
         projfile = os.path.join(os.path.dirname(__file__), "data", "project.qgs")
         iface.addProject(projfile)
 
     def _openLayerProperties():
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         iface.showLayerProperties(layer)
 
     def _openAttributesTable():
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         iface.showAttributeTable(layer)
 
     def _startEditing():
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         layer.startEditing()
 
     def _stopEditing():
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         layer.rollBack()
         iface.newProject()
 
     def _setRenderer():
         r = MilStd2525Renderer(40, "SDIC")
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         if Qgis.QGIS_VERSION_INT < 29900:
             layer.setRendererV2(r)
         else:
@@ -70,7 +75,7 @@ def functionalTests():
         iface.mapCanvas().setExtent(layer.extent())
 
     def _changeSize():
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         if Qgis.QGIS_VERSION_INT < 29900:
             r = layer.rendererV2()
         else:
@@ -164,7 +169,7 @@ class MilStd2525Test(unittest.TestCase):
         """Test that renderer correctly saved in the project"""
         projfile = os.path.join(os.path.dirname(__file__), "data", "project.qgs")
         iface.addProject(projfile)
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         renderer = MilStd2525Renderer(50, "SDIC")
         if Qgis.QGIS_VERSION_INT < 29900:
             layer.setRendererV2(renderer)
@@ -175,7 +180,7 @@ class MilStd2525Test(unittest.TestCase):
         proj.write(QFileInfo(newProjectFile))
         iface.newProject()
         iface.addProject(newProjectFile)
-        layer = layerFromName("2525")
+        layer = _layerFromName("2525")
         if Qgis.QGIS_VERSION_INT < 29900:
             layerRenderer = layer.rendererV2()
         else:
