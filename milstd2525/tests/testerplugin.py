@@ -145,15 +145,15 @@ class MilStd2525Test(unittest.TestCase):
         image = symbol.bigSymbolPreviewImage()
         renderedFilename = tempFilename("png")
         image.save(renderedFilename)
-        expectedData = open(expectedFilename).read()
+        expectedData = open(expectedFilename, "rb").read()
         expectedHash = hashlib.md5(expectedData).hexdigest()
-        renderedData = open(renderedFilename).read()
+        renderedData = open(renderedFilename, "rb").read()
         renderedHash = hashlib.md5(renderedData).hexdigest()
         self.assertTrue(expectedHash, renderedHash)
 
     def testDefaultSymbol(self):
         """Check that default symbol is correct"""
-        self.checkSymbolRendering(getDefaultSymbol(40),"default_40")
+        self.checkSymbolRendering(getDefaultSymbol(40), "default_40")
         self.checkSymbolRendering(getDefaultSymbol(80), "default_80")
 
     def testWrongCode(self):
