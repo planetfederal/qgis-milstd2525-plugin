@@ -26,7 +26,7 @@ __revision__ = '$Format:%H$'
 
 import os
 
-from PyQt import uic
+from qgis.PyQt import uic
 from qgis.PyQt.QtGui import QPixmap
 
 from milstd2525.milstd2525 import symbolForCode
