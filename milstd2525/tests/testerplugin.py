@@ -17,7 +17,7 @@ try:
 except ImportError:
     from qgis.core import  QGis as Qgis
 
-from qgis.core import QgsProject
+from qgis.core import QgsProject, QgsMapLayerRegistry
 from qgis.utils import iface
 
 from milstd2525.milstd2525symbology import symbolForCode, getDefaultSymbol
