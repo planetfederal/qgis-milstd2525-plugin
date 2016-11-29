@@ -26,10 +26,10 @@ __revision__ = '$Format:%H$'
 
 import os
 
-from PyQt4 import uic
-from PyQt4.QtGui import QPixmap
+from PyQt import uic
+from qgis.PyQt.QtGui import QPixmap
 
-from milstd2525 import symbolForCode
+from milstd2525.milstd2525 import symbolForCode
 
 
 WIDGET, BASE = uic.loadUiType(
@@ -160,7 +160,7 @@ class SIDCDialog(BASE, WIDGET):
         self.newCode = None
 
     def _setComboItem(self, combo, options, value):
-        reversedMap = {v:k for k,v in options.iteritems()}
+        reversedMap = {v:k for k,v in options.items()}
         text = reversedMap[value]
         idx = combo.findText(text)
         if idx != -1:
@@ -307,5 +307,3 @@ class SIDCDialog(BASE, WIDGET):
     def accept(self):
         self.newCode = self.txtCode.text()
         self.close()
-
-

@@ -15,6 +15,7 @@
 *                                                                         *
 ***************************************************************************
 """
+from builtins import object
 
 __author__ = 'Victor Olaya'
 __date__ = 'December 2015'
@@ -24,20 +25,32 @@ __copyright__ = '(C) 2015-2016 Boundless, http://boundlessgeo.com'
 
 __revision__ = '$Format:%H$'
 
-from PyQt4 import QtGui, QtCore
-from qgis.core import QgsRendererV2Registry, QgsApplication
-from qgis.gui import QgsEditorWidgetRegistry
-
-from renderer import MilStd2525RendererMetadata
-from sidcwidgetwrapper import SIDCWidgetWrapperFactory
 import os
 import webbrowser
 
-class MilStd2525Plugin:
+from qgis.PyQt.QtWidgets import QAction
+
+try:
+    from qgis.core import  Qgis
+except ImportError:
+    from qgis.core import  QGis as Qgis
+
+if Qgis.QGIS_VERSION_INT < 29900:
+    from qgis.core import QgsRendererV2Registry, QgsApplication
+else:
+    from qgis.core import QgsRendererRegistry as QgsRendererV2Registry
+    from qgis.core import QgsApplication
+
+from qgis.gui import QgsEditorWidgetRegistry
+
+from milstd2525.renderer import MilStd2525RendererMetadata
+from milstd2525.sidcwidgetwrapper import SIDCWidgetWrapperFactory
+
+class MilStd2525Plugin(object):
     def __init__(self, iface):
         self.iface = iface
         try:
-            from .tests import testerplugin
+            from milstd2525.tests import testerplugin
             from qgistester.tests import addTestModule
             addTestModule(testerplugin, 'MIL-STD-2525')
         except:
@@ -51,10 +64,10 @@ class MilStd2525Plugin:
 
     def initGui(self):
         helpIcon = QgsApplication.getThemeIcon('/mActionHelpAPI.png')
-        self.helpAction = QtGui.QAction(helpIcon, "MIL-STD-2525 Help", self.iface.mainWindow())
+        self.helpAction = QAction(helpIcon, "MIL-STD-2525 Help", self.iface.mainWindow())
         self.helpAction.setObjectName("milstd2525Help")
         self.helpAction.triggered.connect(lambda: webbrowser.open_new("file://" + os.path.join(os.path.dirname(__file__), "docs", "html", "index.html")))
-        self.iface.addPluginToMenu("MIL-STD-2525", self.helpAction)        
+        self.iface.addPluginToMenu("MIL-STD-2525", self.helpAction)
 
     def unload(self):
         QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')

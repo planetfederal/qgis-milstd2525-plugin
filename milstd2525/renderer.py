@@ -15,6 +15,7 @@
 *                                                                         *
 ***************************************************************************
 """
+from __future__ import absolute_import
 
 __author__ = 'Victor Olaya'
 __date__ = 'December 2015'
@@ -26,12 +27,26 @@ __revision__ = '$Format:%H$'
 
 import os
 
-from PyQt4 import uic
+from PyQt import uic
 
-from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata, QgsMarkerSymbolV2, QgsSymbolV2, QGis
-from qgis.gui import QgsRendererV2Widget, QgsFieldProxyModel
+try:
+    from qgis.core import  Qgis
+except ImportError:
+    from qgis.core import  QGis as Qgis
 
-from milstd2525 import symbolForCode, getDefaultSymbol
+if Qgis.QGIS_VERSION_INT < 29900:
+    from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata, QgsMarkerSymbolV2, QgsSymbolV2, QGis
+    from qgis.gui import QgsRendererV2Widget, QgsFieldProxyModel
+else:
+    from qgis.core import QgsFeatureRenderer as QgsFeatureRendererV2
+    from qgis.core import QgsRendererAbstractMetadata as QgsRendererV2AbstractMetadata
+    from qgis.core import QgsMarkerSymbol as QgsMarkerSymbolV2
+    from qgis.core import QgsSymbol as QgsSymbolV2
+    from qgis.gui import QgsRendererWidget as QgsRendererV2Widget
+
+from qgis.gui import QgsFieldProxyModel
+
+from milstd2525.milstd2525 import symbolForCode, getDefaultSymbol
 
 
 pluginPath = os.path.dirname(__file__)
@@ -48,7 +63,7 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         self._defaultSymbol = getDefaultSymbol(size)
         self.cached = {}
 
-    def symbolForFeature(self, feature):
+    def symbolForFeature(self, feature, context):
         idx = feature.fieldNameIndex(self.field)
         if idx != -1:
             code = feature.attributes()[idx]
@@ -67,12 +82,12 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
 
     def startRender(self, context, fields):
         self.context = context
-        for k,v in self.cached.iteritems():
+        for k,v in self.cached.items():
             v.startRender(context)
         self._defaultSymbol.startRender(context)
 
     def stopRender(self, context):
-        for s in self.cached.values():
+        for s in list(self.cached.values()):
             s.stopRender(context)
         self._defaultSymbol.stopRender(context)
 
@@ -80,7 +95,7 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         return [self.field]
 
     def symbols(self, context):
-        return self.cached.values()
+        return list(self.cached.values())
 
     def clone(self):
         r = MilStd2525Renderer(self.size, self.field)

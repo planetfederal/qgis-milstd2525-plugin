@@ -15,6 +15,7 @@
 *                                                                         *
 ***************************************************************************
 """
+from builtins import range
 
 __author__ = 'Victor Olaya'
 __date__ = 'December 2015'
@@ -27,7 +28,16 @@ __revision__ = '$Format:%H$'
 import os
 import fnmatch
 
-from qgis.core import QgsMarkerSymbolV2, QgsSvgMarkerSymbolLayerV2
+try:
+    from qgis.core import  Qgis
+except ImportError:
+    from qgis.core import  QGis as Qgis
+
+if Qgis.QGIS_VERSION_INT < 29900:
+    from qgis.core import QgsMarkerSymbolV2, QgsSvgMarkerSymbolLayerV2
+else:
+    from qgis.core import QgsMarkerSymbol as QgsMarkerSymbolV2
+    from qgis.core import QgsSvgMarkerSymbolLayer as QgsSvgMarkerSymbolLayerV2
 
 
 def symbolForCode(code, size):
@@ -84,7 +94,7 @@ def symbolForCode(code, size):
 
         if symbol.symbolLayerCount() == 0:
             symbol = None
-    except Exception, e:
+    except Exception as e:
         symbol = None
 
     return symbol

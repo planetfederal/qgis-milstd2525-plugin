@@ -25,5 +25,5 @@ __copyright__ = '(C) 2015-2016 Boundless, http://boundlessgeo.com'
 __revision__ = '$Format:%H$'
 
 def classFactory(iface):
-    from plugin import MilStd2525Plugin
+    from milstd2525.plugin import MilStd2525Plugin
     return MilStd2525Plugin(iface)

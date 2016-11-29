@@ -26,14 +26,14 @@ __revision__ = '$Format:%H$'
 
 import os
 
-from PyQt4 import uic
-from PyQt4.QtGui import QWidget, QLabel, QLineEdit, QPushButton, QHBoxLayout
+from PyQt import uic
+from qgis.PyQt.QtWidgets import QWidget, QLabel, QLineEdit, QPushButton, QHBoxLayout
 
 from qgis.core import NULL
 from qgis.gui import QgsEditorWidgetWrapper, QgsEditorConfigWidget, QgsEditorWidgetFactory
 
-from sidcdialog import SIDCDialog
-from milstd2525 import symbolForCode
+from milstd2525.sidcdialog import SIDCDialog
+from milstd2525.milstd2525 import symbolForCode
 
 
 pluginPath = os.path.dirname(__file__)

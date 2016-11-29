@@ -1,17 +1,26 @@
+from builtins import str
 # Tests for the QGIS Tester plugin. To know more see
 # https://github.com/boundlessgeo/qgis-tester-plugin
 
-from qgis.utils import *
-from qgis.core import *
 import os
 import unittest
-from milstd2525.milstd2525 import symbolForCode, getDefaultSymbol
-from milstd2525.renderer import MilStd2525Renderer
 import tempfile
 import shutil
 import time
-from PyQt4.QtCore import QFileInfo
 import hashlib
+
+from qgis.PyQt.QtCore import QFileInfo
+
+try:
+    from qgis.core import  Qgis
+except ImportError:
+    from qgis.core import  QGis as Qgis
+
+from qgis.core import QgsProject
+from qgis.utils import iface
+
+from milstd2525.milstd2525 import symbolForCode, getDefaultSymbol
+from milstd2525.renderer import MilStd2525Renderer
 
 try:
     from qgistester.test import Test
@@ -51,14 +60,20 @@ def functionalTests():
     def _setRenderer():
         r = MilStd2525Renderer(40, "SDIC")
         layer = layerFromName("2525")
-        layer.setRendererV2(r)
+        if Qgis.QGIS_VERSION_INT < 29900:
+            layer.setRendererV2(r)
+        else:
+            layer.setRenderer(r)
         layer.reload()
         layer.triggerRepaint()
         iface.mapCanvas().setExtent(layer.extent())
 
     def _changeSize():
         layer = layerFromName("2525")
-        r = layer.rendererV2()
+        if Qgis.QGIS_VERSION_INT < 29900:
+            r = layer.rendererV2()
+        else:
+            r = layer.renderer()
         r.size = 80
         layer.triggerRepaint()
         iface.mapCanvas().setExtent(layer.extent())
@@ -149,14 +164,20 @@ class MilStd2525Test(unittest.TestCase):
         iface.addProject(projfile)
         layer = layerFromName("2525")
         renderer = MilStd2525Renderer(50, "SDIC")
-        layer.setRendererV2(renderer)
+        if Qgis.QGIS_VERSION_INT < 29900:
+            layer.setRendererV2(renderer)
+        else:
+            layer.setRenderer(renderer)
         newProjectFile = tempFilename("qgs")
         proj=QgsProject.instance()
         proj.write(QFileInfo(newProjectFile))
         iface.newProject()
         iface.addProject(newProjectFile)
         layer = layerFromName("2525")
-        layerRenderer = layer.rendererV2()
+        if Qgis.QGIS_VERSION_INT < 29900:
+            layerRenderer = layer.rendererV2()
+        else:
+            layerRenderer = layer.renderer()
         self.assertEquals("MilStd2525Renderer", layerRenderer.type())
 
 def pluginSuite():
