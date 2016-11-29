@@ -13,9 +13,6 @@ env:
   - QGIS_VERSION_TAG=master_2 PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
   - QGIS_VERSION_TAG=release PYTHON_EXECUTABLE=python PIP_EXECUTABLE=pip
   - QGIS_VERSION_TAG=master PYTHON_EXECUTABLE=python3 PIP_EXECUTABLE=pip3
-matrix:
-  allow_failures:
-  - env: QGIS_VERSION_TAG=master
 before_install:
 - docker pull boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG}
 - docker tag boundlessgeo/qgis-testing-environment:${QGIS_VERSION_TAG} qgis-testing-environment
