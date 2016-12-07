@@ -30,11 +30,11 @@ import os
 from qgis.PyQt import uic
 
 try:
-    from qgis.core import  Qgis
+    from qgis.core import  QGis
 except ImportError:
-    from qgis.core import  QGis as Qgis
+    from qgis.core import  Qgis as QGis
 
-if Qgis.QGIS_VERSION_INT < 29900:
+if QGis.QGIS_VERSION_INT < 29900:
     from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata, QgsMarkerSymbolV2, QgsSymbolV2, QGis
     from qgis.gui import QgsRendererV2Widget, QgsFieldProxyModel
 else:

@@ -31,11 +31,11 @@ import webbrowser
 from qgis.PyQt.QtWidgets import QAction
 
 try:
-    from qgis.core import  Qgis
+    from qgis.core import  QGis
 except ImportError:
-    from qgis.core import  QGis as Qgis
+    from qgis.core import  Qgis as QGis
 
-if Qgis.QGIS_VERSION_INT < 29900:
+if QGis.QGIS_VERSION_INT < 29900:
     from qgis.core import QgsRendererV2Registry, QgsApplication
 else:
     from qgis.core import QgsRendererRegistry as QgsRendererV2Registry

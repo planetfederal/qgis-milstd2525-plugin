@@ -29,11 +29,11 @@ import os
 import fnmatch
 
 try:
-    from qgis.core import  Qgis
+    from qgis.core import  QGis
 except ImportError:
-    from qgis.core import  QGis as Qgis
+    from qgis.core import  Qgis as QGis
 
-if Qgis.QGIS_VERSION_INT < 29900:
+if QGis.QGIS_VERSION_INT < 29900:
     from qgis.core import QgsMarkerSymbolV2, QgsSvgMarkerSymbolLayerV2
 else:
     from qgis.core import QgsMarkerSymbol as QgsMarkerSymbolV2

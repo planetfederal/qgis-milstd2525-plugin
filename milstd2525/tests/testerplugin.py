@@ -13,9 +13,9 @@ import hashlib
 from qgis.PyQt.QtCore import QFileInfo
 
 try:
-    from qgis.core import  Qgis
+    from qgis.core import  QGis
 except ImportError:
-    from qgis.core import  QGis as Qgis
+    from qgis.core import  Qgis as QGis
 
 from qgis.core import QgsProject, QgsMapLayerRegistry
 from qgis.utils import iface
@@ -66,7 +66,7 @@ def functionalTests():
     def _setRenderer():
         r = MilStd2525Renderer(40, "SDIC")
         layer = _layerFromName("2525")
-        if Qgis.QGIS_VERSION_INT < 29900:
+        if QGis.QGIS_VERSION_INT < 29900:
             layer.setRendererV2(r)
         else:
             layer.setRenderer(r)
@@ -76,7 +76,7 @@ def functionalTests():
 
     def _changeSize():
         layer = _layerFromName("2525")
-        if Qgis.QGIS_VERSION_INT < 29900:
+        if QGis.QGIS_VERSION_INT < 29900:
             r = layer.rendererV2()
         else:
             r = layer.renderer()
@@ -171,7 +171,7 @@ class MilStd2525Test(unittest.TestCase):
         iface.addProject(projfile)
         layer = _layerFromName("2525")
         renderer = MilStd2525Renderer(50, "SDIC")
-        if Qgis.QGIS_VERSION_INT < 29900:
+        if QGis.QGIS_VERSION_INT < 29900:
             layer.setRendererV2(renderer)
         else:
             layer.setRenderer(renderer)
@@ -181,7 +181,7 @@ class MilStd2525Test(unittest.TestCase):
         iface.newProject()
         iface.addProject(newProjectFile)
         layer = _layerFromName("2525")
-        if Qgis.QGIS_VERSION_INT < 29900:
+        if QGis.QGIS_VERSION_INT < 29900:
             layerRenderer = layer.rendererV2()
         else:
             layerRenderer = layer.renderer()
