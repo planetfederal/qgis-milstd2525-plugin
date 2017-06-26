@@ -176,7 +176,7 @@ class MilStd2525Test(unittest.TestCase):
         else:
             layer.setRenderer(renderer)
         newProjectFile = tempFilename("qgs")
-        proj=QgsProject.instance()
+        proj = QgsProject.instance()
         proj.write(QFileInfo(newProjectFile))
         iface.newProject()
         iface.addProject(newProjectFile)

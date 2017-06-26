@@ -63,7 +63,7 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         self._defaultSymbol = getDefaultSymbol(size)
         self.cached = {}
 
-    def symbolForFeature(self, feature, context):
+    def symbolForFeature2(self, feature, context):
         idx = feature.fieldNameIndex(self.field)
         if idx != -1:
             code = feature.attributes()[idx]
