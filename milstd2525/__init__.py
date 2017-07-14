@@ -24,6 +24,12 @@ __copyright__ = '(C) 2015-2016 Boundless, http://boundlessgeo.com'
 
 __revision__ = '$Format:%H$'
 
+import os
+import site
+
+site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
+
+
 def classFactory(iface):
     from milstd2525.plugin import MilStd2525Plugin
     return MilStd2525Plugin(iface)
