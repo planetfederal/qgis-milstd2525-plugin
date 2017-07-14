@@ -46,6 +46,11 @@ from qgis.gui import QgsEditorWidgetRegistry
 from milstd2525.renderer import MilStd2525RendererMetadata
 from milstd2525.sidcwidgetwrapper import SIDCWidgetWrapperFactory
 
+from qgiscommons.gui import (addAboutMenu,
+                             removeAboutMenu,
+                             addHelpMenu,
+                             removeHelpMenu)
+
 class MilStd2525Plugin(object):
     def __init__(self, iface):
         self.iface = iface
@@ -63,11 +68,8 @@ class MilStd2525Plugin(object):
         QgsEditorWidgetRegistry.instance().registerWidget('SIDC code editor', self._widgetWrapperFactory)
 
     def initGui(self):
-        helpIcon = QgsApplication.getThemeIcon('/mActionHelpAPI.png')
-        self.helpAction = QAction(helpIcon, "MIL-STD-2525 Help", self.iface.mainWindow())
-        self.helpAction.setObjectName("milstd2525Help")
-        self.helpAction.triggered.connect(lambda: webbrowser.open_new("file://" + os.path.join(os.path.dirname(__file__), "docs", "html", "index.html")))
-        self.iface.addPluginToMenu("MIL-STD-2525", self.helpAction)
+        addHelpMenu("MIL-STD-2525", self.iface.addPluginToMenu)
+        addAboutMenu("MIL-STD-2525", self.iface.addPluginToMenu)
 
     def unload(self):
         QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')
@@ -78,3 +80,6 @@ class MilStd2525Plugin(object):
             removeTestModule(testerplugin, 'MIL-STD-2525')
         except:
             pass
+
+        removeHelpMenu("MIL-STD-2525")
+        removeAboutMenu("MIL-STD-2525")
