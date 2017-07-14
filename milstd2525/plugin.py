@@ -71,8 +71,19 @@ class MilStd2525Plugin(object):
         addHelpMenu("MIL-STD-2525", self.iface.addPluginToMenu)
         addAboutMenu("MIL-STD-2525", self.iface.addPluginToMenu)
 
+        try:
+            from lessons import addLessonsFolder, addGroup
+            folder = os.path.join(os.path.dirname(__file__), "_lessons")
+            addLessonsFolder(folder, "milstd2525")
+        except:
+            pass
+
+
     def unload(self):
         QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')
+
+        removeHelpMenu("MIL-STD-2525")
+        removeAboutMenu("MIL-STD-2525")
 
         try:
             from milstd2525.tests import testerplugin
@@ -81,5 +92,11 @@ class MilStd2525Plugin(object):
         except:
             pass
 
-        removeHelpMenu("MIL-STD-2525")
-        removeAboutMenu("MIL-STD-2525")
+        try:
+            from lessons import removeLessonsFolder
+            folder = os.path.join(pluginPath, '_lessons')
+            removeLessonsFolder(folder)
+        except:
+            pass
+
+
