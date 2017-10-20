@@ -14,7 +14,9 @@ The |current_plugin| plugin is a plugin for QGIS to ease the use of MIL-STD-2525
 Documentation content:
 
 .. toctree::
+   :glob:
    :maxdepth: 2
 
    installation
    usage
+   *
