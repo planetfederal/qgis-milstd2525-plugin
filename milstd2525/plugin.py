@@ -46,7 +46,7 @@ from qgis.gui import QgsEditorWidgetRegistry
 from milstd2525.renderer import MilStd2525RendererMetadata
 from milstd2525.sidcwidgetwrapper import SIDCWidgetWrapperFactory
 
-from qgiscommons.gui import (addAboutMenu,
+from qgiscommons2.gui import (addAboutMenu,
                              removeAboutMenu,
                              addHelpMenu,
                              removeHelpMenu)
