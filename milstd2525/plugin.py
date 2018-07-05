@@ -72,7 +72,7 @@ class MilStd2525Plugin(object):
 
 
     def unload(self):
-        QgsRendererRegistry.instance().removeRenderer('MilStd2525Renderer')
+        QgsApplication.rendererRegistry().removeRenderer('MilStd2525Renderer')
 
         removeHelpMenu("MIL-STD-2525")
         removeAboutMenu("MIL-STD-2525")
