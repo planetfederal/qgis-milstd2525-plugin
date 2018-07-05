@@ -29,22 +29,12 @@ import os
 
 from qgis.PyQt import uic
 
-try:
-    from qgis.core import  QGis
-except ImportError:
-    from qgis.core import  Qgis as QGis
-
-if QGis.QGIS_VERSION_INT < 29900:
-    from qgis.core import QgsFeatureRendererV2, QgsRendererV2AbstractMetadata, QgsMarkerSymbolV2, QgsSymbolV2, QGis
-    from qgis.gui import QgsRendererV2Widget, QgsFieldProxyModel
-else:
-    from qgis.core import QgsFeatureRenderer as QgsFeatureRendererV2
-    from qgis.core import QgsRendererAbstractMetadata as QgsRendererV2AbstractMetadata
-    from qgis.core import QgsMarkerSymbol as QgsMarkerSymbolV2
-    from qgis.core import QgsSymbol as QgsSymbolV2
-    from qgis.gui import QgsRendererWidget as QgsRendererV2Widget
-
-from qgis.gui import QgsFieldProxyModel
+from qgis.core import QgsFeatureRenderer 
+from qgis.core import QgsRendererAbstractMetadata 
+from qgis.core import QgsMarkerSymbol 
+from qgis.core import QgsSymbol
+from qgis.gui import QgsRendererWidget
+from qgis.core import QgsFieldProxyModel
 
 from milstd2525.milstd2525symbology import symbolForCode, getDefaultSymbol
 
@@ -55,15 +45,15 @@ WIDGET, BASE = uic.loadUiType(
     os.path.join(pluginPath, 'ui', 'milstd2525rendererwidgetbase.ui'))
 
 
-class MilStd2525Renderer(QgsFeatureRendererV2):
+class MilStd2525Renderer(QgsFeatureRenderer):
     def __init__(self, size=40, field=''):
-        QgsFeatureRendererV2.__init__(self, 'MilStd2525Renderer')
+        QgsFeatureRenderer.__init__(self, 'MilStd2525Renderer')
         self.field = field
         self.size = size
         self._defaultSymbol = getDefaultSymbol(size)
         self.cached = {}
 
-    def symbolForFeature2(self, feature, context):
+    def symbolForFeature(self, feature, context):
         idx = feature.fieldNameIndex(self.field)
         if idx != -1:
             code = feature.attributes()[idx]
@@ -82,7 +72,7 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
 
     def startRender(self, context, fields):
         self.context = context
-        for k,v in self.cached.items():
+        for k,v in list(self.cached.items()):
             v.startRender(context)
         self._defaultSymbol.startRender(context)
 
@@ -91,7 +81,7 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
             s.stopRender(context)
         self._defaultSymbol.stopRender(context)
 
-    def usedAttributes(self):
+    def usedAttributes(self, renderContext):
         return [self.field]
 
     def symbols(self, context):
@@ -102,15 +92,15 @@ class MilStd2525Renderer(QgsFeatureRendererV2):
         r.cached = self.cached
         return r
 
-    def save(self, doc):
-        elem = doc.createElement('renderer-v2')
+    def save(self, doc, writeContext):
+        elem = doc.createElement('renderer')
         elem.setAttribute('type', 'MilStd2525Renderer')
         elem.setAttribute('size', self.size)
         elem.setAttribute('field', self.field)
         return elem
 
 
-class MilStd2525RendererWidget(QgsRendererV2Widget, WIDGET):
+class MilStd2525RendererWidget(QgsRendererWidget, WIDGET):
     def __init__(self, layer, style, renderer):
         super(MilStd2525RendererWidget, self).__init__(layer, style)
         self.setupUi(self)
@@ -139,9 +129,9 @@ class MilStd2525RendererWidget(QgsRendererV2Widget, WIDGET):
         return self.r
 
 
-class MilStd2525RendererMetadata(QgsRendererV2AbstractMetadata):
+class MilStd2525RendererMetadata(QgsRendererAbstractMetadata):
     def __init__(self):
-        QgsRendererV2AbstractMetadata.__init__(
+        QgsRendererAbstractMetadata.__init__(
             self, 'MilStd2525Renderer', 'MIL-STD-2525 renderer')
 
     def createRenderer(self, element):

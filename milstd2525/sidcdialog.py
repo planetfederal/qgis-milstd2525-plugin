@@ -31,7 +31,6 @@ from qgis.PyQt.QtGui import QPixmap
 
 from milstd2525.milstd2525symbology import symbolForCode
 
-
 WIDGET, BASE = uic.loadUiType(
     os.path.join(os.path.dirname(__file__), 'ui', 'sidcdialogbase.ui'))
 
@@ -160,7 +159,7 @@ class SIDCDialog(BASE, WIDGET):
         self.newCode = None
 
     def _setComboItem(self, combo, options, value):
-        reversedMap = {v:k for k,v in options.items()}
+        reversedMap = {v:k for k,v in list(options.items())}
         text = reversedMap[value]
         idx = combo.findText(text)
         if idx != -1:

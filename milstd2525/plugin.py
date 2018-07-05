@@ -30,18 +30,10 @@ import webbrowser
 
 from qgis.PyQt.QtWidgets import QAction
 
-try:
-    from qgis.core import  QGis
-except ImportError:
-    from qgis.core import  Qgis as QGis
+from qgis.core import  Qgis
+from qgis.core import QgsApplication
 
-if QGis.QGIS_VERSION_INT < 29900:
-    from qgis.core import QgsRendererV2Registry, QgsApplication
-else:
-    from qgis.core import QgsRendererRegistry as QgsRendererV2Registry
-    from qgis.core import QgsApplication
-
-from qgis.gui import QgsEditorWidgetRegistry
+from qgis.gui import QgsGui
 
 from milstd2525.renderer import MilStd2525RendererMetadata
 from milstd2525.sidcwidgetwrapper import SIDCWidgetWrapperFactory
@@ -64,8 +56,8 @@ class MilStd2525Plugin(object):
         self._rendererMetadata = MilStd2525RendererMetadata()
         self._widgetWrapperFactory = SIDCWidgetWrapperFactory()
 
-        QgsRendererV2Registry.instance().addRenderer(self._rendererMetadata)
-        QgsEditorWidgetRegistry.instance().registerWidget('SIDC code editor', self._widgetWrapperFactory)
+        QgsApplication.rendererRegistry().addRenderer(self._rendererMetadata)
+        QgsGui.instance().editorWidgetRegistry().registerWidget('SIDC code editor', self._widgetWrapperFactory)
 
     def initGui(self):
         addHelpMenu("MIL-STD-2525", self.iface.addPluginToMenu)
@@ -80,7 +72,7 @@ class MilStd2525Plugin(object):
 
 
     def unload(self):
-        QgsRendererV2Registry.instance().removeRenderer('MilStd2525Renderer')
+        QgsRendererRegistry.instance().removeRenderer('MilStd2525Renderer')
 
         removeHelpMenu("MIL-STD-2525")
         removeAboutMenu("MIL-STD-2525")

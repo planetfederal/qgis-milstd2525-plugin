@@ -50,13 +50,16 @@ def setup():
         })
 
 
-
-def _install(folder, options):
+@task
+def install(options):
     '''install plugin to qgis'''
     builddocs(options)
     plugin_name = options.plugin.name
     src = path(__file__).dirname() / plugin_name
-    dst = path('~').expanduser() / folder / 'python' / 'plugins' / plugin_name
+    if os.name == 'nt':
+        dst = path('~/AppData/Roaming/QGIS/QGIS3/profiles/default/python/plugins').expanduser() / plugin_name
+    else:
+        dst = path('~/.local/share/QGIS/QGIS3/profiles/default/python/plugins').expanduser() / plugin_name
     src = src.abspath()
     dst = dst.abspath()
     if not hasattr(os, 'symlink'):
@@ -72,19 +75,6 @@ def _install(folder, options):
             docs_dest.mkdir()
         if not docs_link.islink():
             docs.symlink(docs_link)
-
-@task
-def install(options):
-    _install(".qgis2", options)
-
-@task
-def installdev(options):
-    _install(".qgis-dev", options)
-
-@task
-def install3(options):
-    _install(".qgis3", options)
-
 
 @task
 def install_devtools():

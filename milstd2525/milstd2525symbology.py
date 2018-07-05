@@ -28,21 +28,14 @@ __revision__ = '$Format:%H$'
 import os
 import fnmatch
 
-try:
-    from qgis.core import  QGis
-except ImportError:
-    from qgis.core import  Qgis as QGis
-
-if QGis.QGIS_VERSION_INT < 29900:
-    from qgis.core import QgsMarkerSymbolV2, QgsSvgMarkerSymbolLayerV2
-else:
-    from qgis.core import QgsMarkerSymbol as QgsMarkerSymbolV2
-    from qgis.core import QgsSvgMarkerSymbolLayer as QgsSvgMarkerSymbolLayerV2
+from qgis.core import  Qgis
+from qgis.core import QgsMarkerSymbol
+from qgis.core import QgsSvgMarkerSymbolLayer
 
 
 def symbolForCode(code, size):
     try:
-        symbol = QgsMarkerSymbolV2()
+        symbol = QgsMarkerSymbol()
         for i in range(symbol.symbolLayerCount()):
             symbol.takeSymbolLayer(0)
 
@@ -110,8 +103,7 @@ def getSymbolLayer(folder, svg, size):
             filepath = os.path.join(base, matching[0])
             break
     if filepath is not None:
-        symbolLayer = QgsSvgMarkerSymbolLayerV2()
-        symbolLayer.setPath(filepath)
+        symbolLayer = QgsSvgMarkerSymbolLayer(filepath)
         symbolLayer.setSizeUnit(3)
         symbolLayer.setSize(size)
         return symbolLayer
@@ -120,9 +112,8 @@ def getSymbolLayer(folder, svg, size):
 
 
 def getDefaultSymbol(size):
-    symbol = QgsMarkerSymbolV2()
-    symbolLayer = QgsSvgMarkerSymbolLayerV2()
-    symbolLayer.setPath(
+    symbol = QgsMarkerSymbol()
+    symbolLayer = QgsSvgMarkerSymbolLayer(
         os.path.join(os.path.dirname(__file__), 'svg', 'question.svg'))
     symbolLayer.setSizeUnit(3)
     symbolLayer.setSize(size)
