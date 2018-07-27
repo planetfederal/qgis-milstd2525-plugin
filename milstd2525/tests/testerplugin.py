@@ -11,13 +11,7 @@ import time
 import hashlib
 
 from qgis.PyQt.QtCore import QFileInfo
-
-try:
-    from qgis.core import  QGis
-except ImportError:
-    from qgis.core import  Qgis as QGis
-
-from qgis.core import QgsProject, QgsMapLayerRegistry
+from qgis.core import QgsProject, Qgis
 from qgis.utils import iface
 
 from milstd2525.milstd2525symbology import symbolForCode, getDefaultSymbol
@@ -30,7 +24,7 @@ except:
 
 
 def _layerFromName(name):
-    layers = list(QgsMapLayerRegistry.instance().mapLayers().values())
+    layers = list(QgsProject.instance().mapLayers().values())
     for layer in layers:
         if layer.name() == name:
             return layer
@@ -66,20 +60,14 @@ def functionalTests():
     def _setRenderer():
         r = MilStd2525Renderer(40, "SDIC")
         layer = _layerFromName("2525")
-        if QGis.QGIS_VERSION_INT < 29900:
-            layer.setRendererV2(r)
-        else:
-            layer.setRenderer(r)
+        layer.setRenderer(r)
         layer.reload()
         layer.triggerRepaint()
         iface.mapCanvas().setExtent(layer.extent())
 
     def _changeSize():
         layer = _layerFromName("2525")
-        if QGis.QGIS_VERSION_INT < 29900:
-            r = layer.rendererV2()
-        else:
-            r = layer.renderer()
+        r = layer.renderer()
         r.size = 80
         layer.triggerRepaint()
         iface.mapCanvas().setExtent(layer.extent())
@@ -171,20 +159,14 @@ class MilStd2525Test(unittest.TestCase):
         iface.addProject(projfile)
         layer = _layerFromName("2525")
         renderer = MilStd2525Renderer(50, "SDIC")
-        if QGis.QGIS_VERSION_INT < 29900:
-            layer.setRendererV2(renderer)
-        else:
-            layer.setRenderer(renderer)
+        layer.setRenderer(renderer)
         newProjectFile = tempFilename("qgs")
         proj = QgsProject.instance()
-        proj.write(QFileInfo(newProjectFile))
+        proj.write(newProjectFile)
         iface.newProject()
         iface.addProject(newProjectFile)
         layer = _layerFromName("2525")
-        if QGis.QGIS_VERSION_INT < 29900:
-            layerRenderer = layer.rendererV2()
-        else:
-            layerRenderer = layer.renderer()
+        layerRenderer = layer.renderer()
         self.assertEquals("MilStd2525Renderer", layerRenderer.type())
 
 
