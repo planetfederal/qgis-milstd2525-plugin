@@ -54,7 +54,7 @@ class MilStd2525Renderer(QgsFeatureRenderer):
         self.cached = {}
 
     def symbolForFeature(self, feature, context):
-        idx = feature.fieldNameIndex(self.field)
+        idx = feature.fieldNameIndex(self.field) if self.field is not None else -1
         if idx != -1:
             code = feature.attributes()[idx]
             if code not in self.cached:
@@ -113,7 +113,11 @@ class MilStd2525RendererWidget(QgsRendererWidget, WIDGET):
 
         if renderer is None or renderer.type() != 'MilStd2525Renderer':
             fields = [f.name() for f in layer.dataProvider().fields()]
-            self.r = MilStd2525Renderer(field = fields[0])
+            if fields:
+                field = fields[0]
+            else:
+                field = None
+            self.r = MilStd2525Renderer(field = field)
         else:
             self.r = renderer.clone()
 
