@@ -1,3 +1,2 @@
-future
 qgiscommons
 # test requirements

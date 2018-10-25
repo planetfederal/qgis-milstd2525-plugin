@@ -45,7 +45,7 @@ def setup():
     runtime, test = read_requirements()
     os.environ['PYTHONPATH']=ext_libs.abspath()
     for req in runtime + test:
-        sh('easy_install -a -d %(ext_libs)s %(dep)s' % {
+        sh('pip install -U -t %(ext_libs)s %(dep)s' % {
             'ext_libs' : ext_libs.abspath(),
             'dep' : req
         })
