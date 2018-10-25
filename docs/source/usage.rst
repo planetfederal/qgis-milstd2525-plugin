@@ -1,7 +1,7 @@
 Usage
 =====
 
-The |current_plugin| adds support for MIL-STD-2525 - a standard for joint military symbology - in QGIS. In MIL-STD-2525, marker symbols are composed of several levels of information (for example, *StandardIdentity1*, *Status*, *Icon*, and so on). Each level's options are represented by a unique set of one or more digits. These codes are concatenated into a unique Symbol Identification Code (SIDC) that will determine the look of the final symbol.
+The *MIL-STD-2525* plugin adds support for MIL-STD-2525 - a standard for joint military symbology - in QGIS. In MIL-STD-2525, marker symbols are composed of several levels of information (for example, *StandardIdentity1*, *Status*, *Icon*, and so on). Each level's options are represented by a unique set of one or more digits. These codes are concatenated into a unique Symbol Identification Code (SIDC) that will determine the look of the final symbol.
 
 ̣This plugin adds two new capabilities to QGIS:
 
@@ -47,7 +47,7 @@ Now, if you open the attributes table of the layer and set the layer to edit mod
 .. warning::
 
     On OsX/macOS it is sometimes tricky to have QGIS edit widgets work as expected. In the context of the MIL-STD2525 plugin is sometimes hard to have the widget button work immediately. The workaround is first needed to double click in the table cell as if it would be necessary to manually edit the symbology code. The table cell gets then a blue frame, after that the widget button gets a blue background and becomes clickable.
-    
+
 .. figure:: img/mil_mac01.png
 
 .. figure:: img/mil_mac02.png

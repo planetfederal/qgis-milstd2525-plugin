@@ -223,7 +223,6 @@ latex_documents = [
 # Substitutions
 rst_epilog = """
 .. |BLQGIS| replace:: *Boundless Desktop*
-.. |current_plugin| replace:: *MIL-STD-2525*
 """
 
 # -- Options for manual page output ---------------------------------------
