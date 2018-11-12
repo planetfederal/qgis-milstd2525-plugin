@@ -6,6 +6,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. _milstd2525_docs:
+
 MIL-STD-2525 documentation
 ==========================
 
