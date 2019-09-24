@@ -52,6 +52,6 @@ docs/_build/
 
 # PyBuilder
 target/
-ext-libs
+extlibs
 ext-src
 travis_secrets.tar.gz
