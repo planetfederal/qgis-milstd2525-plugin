@@ -17,7 +17,7 @@
    <item row="0" column="0" colspan="2">
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>This edit widget allows entering SIDC codes and get a preview of the corresponding icon</string>
+      <string>This edit widget allows entering SIDC codes and getting a preview of corresponding icon</string>
      </property>
     </widget>
    </item>
