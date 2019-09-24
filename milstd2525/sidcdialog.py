@@ -5,7 +5,7 @@
     sidcdialog.py
     ---------------------
     Date                 : December 2015
-    Copyright            : (C) 2015-2016 Boundless, http://boundlessgeo.com
+    Copyright            : (C) 2015-2016, 2018 Boundless, 2019 Planet Inc.
 ***************************************************************************
 *                                                                         *
 *   This program is free software; you can redistribute it and/or modify  *
@@ -16,9 +16,10 @@
 ***************************************************************************
 """
 
-__author__ = 'Victor Olaya'
-__date__ = 'December 2015'
-__copyright__ = '(C) 2015-2016 Boundless, http://boundlessgeo.com'
+__author__ = 'Planet Federal'
+__date__ = 'September 2019'
+__copyright__ = '(C) 2015-2016, 2018 Boundless, ' \
+                '2019 Planet Inc, https://planet.com'
 
 # This will get replaced with a git SHA1 when you do a git archive
 

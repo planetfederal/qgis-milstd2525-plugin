@@ -1,3 +1,30 @@
+# -*- coding: utf-8 -*-
+
+"""
+***************************************************************************
+    testerplugin.py
+    ---------------------
+    Date                 : December 2015
+    Copyright            : (C) 2015-2016, 2018 Boundless, 2019 Planet Inc.
+***************************************************************************
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************
+"""
+
+__author__ = 'Planet Federal'
+__date__ = 'September 2019'
+__copyright__ = '(C) 2015-2016, 2018 Boundless, ' \
+                '2019 Planet Inc, https://planet.com'
+
+# This will get replaced with a git SHA1 when you do a git archive
+
+__revision__ = '$Format:%H$'
+
 from builtins import str
 # Tests for the QGIS Tester plugin. To know more see
 # https://github.com/boundlessgeo/qgis-tester-plugin
