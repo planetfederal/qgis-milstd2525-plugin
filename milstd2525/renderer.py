@@ -53,9 +53,11 @@ class MilStd2525Renderer(QgsFeatureRenderer):
         self.size = size
         self._defaultSymbol = getDefaultSymbol(size)
         self.cached = {}
+        self.context = None
 
     def symbolForFeature(self, feature, context):
-        idx = feature.fieldNameIndex(self.field) if self.field is not None else -1
+        idx = feature.fieldNameIndex(self.field) \
+            if self.field is not None else -1
         if idx != -1:
             code = feature.attributes()[idx]
             if code not in self.cached:
@@ -71,18 +73,18 @@ class MilStd2525Renderer(QgsFeatureRenderer):
         else:
             return self._defaultSymbol
 
-    def startRender(self, context, fields):
+    def startRender(self, context=None, fields=None):
         self.context = context
-        for k,v in list(self.cached.items()):
+        for k, v in list(self.cached.items()):
             v.startRender(context)
         self._defaultSymbol.startRender(context)
 
-    def stopRender(self, context):
+    def stopRender(self, context=None):
         for s in list(self.cached.values()):
             s.stopRender(context)
         self._defaultSymbol.stopRender(context)
 
-    def usedAttributes(self, renderContext):
+    def usedAttributes(self, context):
         return [self.field]
 
     def symbols(self, context):
@@ -93,20 +95,22 @@ class MilStd2525Renderer(QgsFeatureRenderer):
         r.cached = self.cached
         return r
 
-    def save(self, doc, writeContext):
+    def save(self, doc, context):
         elem = doc.createElement('renderer-v2')
         elem.setAttribute('type', 'MilStd2525Renderer')
         elem.setAttribute('size', self.size)
         elem.setAttribute('field', self.field)
         return elem
 
-    def create(self, symbologyElem, context):
+    # noinspection PyUnusedLocal,PyMethodMayBeStatic
+    def create(self, symbology_elem, context):
         size = elem.attribute('size')
         field = elem.attribute('field')
         r = MilStd2525Renderer(size, field)
         return r
 
 
+# noinspection PyPep8Naming
 class MilStd2525RendererWidget(QgsRendererWidget, WIDGET):
     def __init__(self, layer, style, renderer):
         super(MilStd2525RendererWidget, self).__init__(layer, style)
@@ -118,7 +122,7 @@ class MilStd2525RendererWidget(QgsRendererWidget, WIDGET):
                 field = fields[0]
             else:
                 field = None
-            self.r = MilStd2525Renderer(field = field)
+            self.r = MilStd2525Renderer(field=field)
         else:
             self.r = renderer.clone()
 
@@ -148,7 +152,7 @@ class MilStd2525RendererMetadata(QgsRendererAbstractMetadata):
     def createRenderer(self, element, context):
         size = int(element.attribute('size'))
         field = element.attribute('field')
-        print(size,field)
+        print(size, field)
         return MilStd2525Renderer(size, field)
 
     def createRendererWidget(self, layer, style, renderer):

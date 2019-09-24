@@ -44,6 +44,7 @@ from qgis.utils import iface
 from milstd2525.milstd2525symbology import symbolForCode, getDefaultSymbol
 from milstd2525.renderer import MilStd2525Renderer
 
+# noinspection PyBroadException
 try:
     from qgistester.test import Test
 except:
@@ -51,6 +52,7 @@ except:
 
 
 def _layerFromName(name):
+    # noinspection PyArgumentList
     layers = list(QgsProject.instance().mapLayers().values())
     for layer in layers:
         if layer.name() == name:
@@ -58,6 +60,7 @@ def _layerFromName(name):
 
 
 def functionalTests():
+    # noinspection PyBroadException
     try:
         from qgistester.test import Test
     except:
@@ -71,6 +74,7 @@ def functionalTests():
         layer = _layerFromName("2525")
         iface.showLayerProperties(layer)
 
+    # noinspection PyUnusedLocal
     def _openAttributesTable():
         layer = _layerFromName("2525")
         iface.showAttributeTable(layer)
@@ -84,6 +88,7 @@ def functionalTests():
         layer.rollBack()
         iface.newProject()
 
+    # noinspection PyUnusedLocal
     def _setRenderer():
         r = MilStd2525Renderer(40, "SDIC")
         layer = _layerFromName("2525")
@@ -92,6 +97,7 @@ def functionalTests():
         layer.triggerRepaint()
         iface.mapCanvas().setExtent(layer.extent())
 
+    # noinspection PyUnusedLocal
     def _changeSize():
         layer = _layerFromName("2525")
         r = layer.renderer()
@@ -101,46 +107,63 @@ def functionalTests():
 
     editWidgetTest = Test("Test code edit widget")
     editWidgetTest.addStep("Open project", _openProject)
-    #editWidgetTest.addStep("Open layer properties", _openLayerProperties)
-    editWidgetTest.addStep("Open layer properties, go to the 'Fields' tab  and set the edit widget of the SDIC field to 'SDIC code editor'", _openLayerProperties)
+    # editWidgetTest.addStep("Open layer properties", _openLayerProperties)
+    editWidgetTest.addStep(
+        "Open layer properties, go to the 'Fields' tab  and set the edit "
+        "widget of the SDIC field to 'SDIC code editor'",
+        _openLayerProperties)
     editWidgetTest.addStep("Toggle editing", _startEditing)
-    #editWidgetTest.addStep("Open attributes table", _openAttributesTable)
-    editWidgetTest.addStep("Select layer in the layers tree and open its attribute table")
-    editWidgetTest.addStep("Edit a value in the table using the code editor widget and check that it works correctly")
+    # editWidgetTest.addStep("Open attributes table", _openAttributesTable)
+    editWidgetTest.addStep(
+        "Select layer in the layers tree and open its attribute table")
+    editWidgetTest.addStep(
+        "Edit a value in the table using the code editor widget and check "
+        "that it works correctly")
     editWidgetTest.addStep("Toggle editing", _stopEditing)
 
     rendererTest = Test("Renderer test")
     rendererTest.addStep("Open project", _openProject)
-    rendererTest.addStep("Open layer properties. Go to the 'Style' tab and set renderer of the layer "
-                         "to 'MIL-STD-2525' renderer. Close dialog by pressing 'OK' button", _openLayerProperties)
+    rendererTest.addStep(
+        "Open layer properties. Go to the 'Style' tab and set renderer of "
+        "the layer to 'MIL-STD-2525' renderer. Close dialog by pressing 'OK' "
+        "button", _openLayerProperties)
     rendererTest.addStep("Verify that layer rendered correctly.")
 
     sizeChangeTest = Test("Size change test")
     sizeChangeTest.addStep("Open project", _openProject)
-    #sizeChangeTest.addStep("Set renderer", _setRenderer)
-    sizeChangeTest.addStep("Open layer properties. Go to the 'Style' tab and set renderer of the layer "
-                         "to 'MIL-STD-2525' renderer. Close dialog by pressing 'OK' button", _openLayerProperties)
-    sizeChangeTest.addStep("Verify that the layer is rendered with MIL-STD-2525 symbology", isVerifyStep=True)
-    #sizeChangeTest.addStep("Change size", _changeSize)
-    sizeChangeTest.addStep("Open layer properties. Go to the 'Style' tab and set symbol size to 80. "
-                           "Close dialog by pressing 'OK' button", _openLayerProperties)
+    # sizeChangeTest.addStep("Set renderer", _setRenderer)
+    sizeChangeTest.addStep(
+        "Open layer properties. Go to the 'Style' tab and set renderer of "
+        "the layer to 'MIL-STD-2525' renderer. Close dialog by pressing 'OK' "
+        "button", _openLayerProperties)
+    sizeChangeTest.addStep(
+        "Verify that the layer is rendered with MIL-STD-2525 symbology",
+        isVerifyStep=True)
+    # sizeChangeTest.addStep("Change size", _changeSize)
+    sizeChangeTest.addStep(
+        "Open layer properties. Go to the 'Style' tab and set symbol size to "
+        "80. Close dialog by pressing 'OK' button", _openLayerProperties)
     sizeChangeTest.addStep("Verify that the size of symbols has changed")
 
     return [editWidgetTest, rendererTest, sizeChangeTest]
 
 
 _tempFolder = None
+
+
 def tempFolder():
     global _tempFolder
     if _tempFolder is None:
         _tempFolder = tempfile.mkdtemp()
     return _tempFolder
 
+
 def deleteTempFolder():
     global _tempFolder
     if _tempFolder is not None:
         shutil.rmtree(_tempFolder, True)
         _tempFolder = None
+
 
 def tempFilename(ext):
     path = tempFolder()
@@ -154,9 +177,11 @@ class MilStd2525Test(unittest.TestCase):
     def tearDown(self):
         deleteTempFolder()
 
-    def checkSymbolRendering(self,symbol, expected):
+    def checkSymbolRendering(self, symbol, expected):
         """Check symbols rendering"""
-        expectedFilename = os.path.join(os.path.dirname(__file__), "expected", expected + ".png")
+        expectedFilename = \
+            os.path.join(os.path.dirname(__file__),
+                         "expected", expected + ".png")
         image = symbol.bigSymbolPreviewImage()
         renderedFilename = tempFilename("png")
         image.save(renderedFilename)
@@ -177,17 +202,23 @@ class MilStd2525Test(unittest.TestCase):
 
     def testRendering(self):
         """Test code rendering"""
-        self.checkSymbolRendering(symbolForCode("10164011521200001600",40), "10164011521200001600_40")
-        self.checkSymbolRendering(symbolForCode("10164011521200001600",80), "10164011521200001600_80")
+        self.checkSymbolRendering(
+            symbolForCode("10164011521200001600", 40),
+            "10164011521200001600_40")
+        self.checkSymbolRendering(symbolForCode(
+            "10164011521200001600", 80),
+            "10164011521200001600_80")
 
     def testRendererSavedToProject(self):
         """Test that renderer correctly saved in the project"""
-        projfile = os.path.join(os.path.dirname(__file__), "data", "project.qgs")
+        projfile = os.path.join(
+            os.path.dirname(__file__), "data", "project.qgs")
         iface.addProject(projfile)
         layer = _layerFromName("2525")
         renderer = MilStd2525Renderer(50, "SDIC")
         layer.setRenderer(renderer)
         newProjectFile = tempFilename("qgs")
+        # noinspection PyArgumentList
         proj = QgsProject.instance()
         proj.write(newProjectFile)
         iface.newProject()

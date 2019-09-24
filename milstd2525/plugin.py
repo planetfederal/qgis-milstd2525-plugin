@@ -31,7 +31,7 @@ import webbrowser
 
 from qgis.PyQt.QtWidgets import QAction
 
-from qgis.core import  Qgis
+from qgis.core import Qgis
 from qgis.core import QgsApplication
 
 from qgis.gui import QgsGui
@@ -39,14 +39,19 @@ from qgis.gui import QgsGui
 from milstd2525.renderer import MilStd2525RendererMetadata
 from milstd2525.sidcwidgetwrapper import SIDCWidgetWrapperFactory
 
-from qgiscommons2.gui import (addAboutMenu,
-                             removeAboutMenu,
-                             addHelpMenu,
-                             removeHelpMenu)
+from qgiscommons2.gui import (
+    addAboutMenu,
+    removeAboutMenu,
+    addHelpMenu,
+    removeHelpMenu
+)
 
+
+# noinspection PyPep8Naming
 class MilStd2525Plugin(object):
     def __init__(self, iface):
         self.iface = iface
+        # noinspection PyBroadException
         try:
             from milstd2525.tests import testerplugin
             from qgistester.tests import addTestModule
@@ -57,13 +62,17 @@ class MilStd2525Plugin(object):
         self._rendererMetadata = MilStd2525RendererMetadata()
         self._widgetWrapperFactory = SIDCWidgetWrapperFactory()
 
+        # noinspection PyArgumentList
         QgsApplication.rendererRegistry().addRenderer(self._rendererMetadata)
-        QgsGui.instance().editorWidgetRegistry().registerWidget('SIDC code editor', self._widgetWrapperFactory)
+        # noinspection PyArgumentList
+        QgsGui.instance().editorWidgetRegistry().registerWidget(
+            'SIDC code editor', self._widgetWrapperFactory)
 
     def initGui(self):
         addHelpMenu("MIL-STD-2525", self.iface.addPluginToMenu)
         addAboutMenu("MIL-STD-2525", self.iface.addPluginToMenu)
 
+        # noinspection PyBroadException
         try:
             from lessons import addLessonsFolder, addGroup
             folder = os.path.join(os.path.dirname(__file__), "_lessons")
@@ -71,13 +80,15 @@ class MilStd2525Plugin(object):
         except:
             pass
 
-
+    # noinspection PyMethodMayBeStatic
     def unload(self):
+        # noinspection PyArgumentList
         QgsApplication.rendererRegistry().removeRenderer('MilStd2525Renderer')
 
         removeHelpMenu("MIL-STD-2525")
         removeAboutMenu("MIL-STD-2525")
 
+        # noinspection PyBroadException
         try:
             from milstd2525.tests import testerplugin
             from qgistester.tests import removeTestModule
@@ -85,11 +96,10 @@ class MilStd2525Plugin(object):
         except:
             pass
 
+        # noinspection PyBroadException
         try:
             from lessons import removeLessonsFolder
             folder = os.path.join(pluginPath, '_lessons')
             removeLessonsFolder(folder)
         except:
             pass
-
-
