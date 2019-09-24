@@ -28,10 +28,16 @@ __revision__ = '$Format:%H$'
 
 import os
 import fnmatch
+import logging
 
 from qgis.core import Qgis
 from qgis.core import QgsMarkerSymbol
 from qgis.core import QgsSvgMarkerSymbolLayer
+
+LOG_LEVEL = os.environ.get('PYTHON_LOG_LEVEL', 'WARNING').upper()
+logging.basicConfig(level=LOG_LEVEL)
+log = logging.getLogger(__name__)
+LOG_VERBOSE = os.environ.get('PYTHON_LOG_VERBOSE', None)
 
 
 # noinspection PyPep8Naming
@@ -46,32 +52,33 @@ def symbolForCode(code, size):
         echelonLayer = getSymbolLayer('Echelon', echelonCode, size)
         if echelonLayer is not None:
             symbol.insertSymbolLayer(0, echelonLayer)
-        # print 'echelon: %s %s' % (echelonCode, str(echelonLayer is not None))
+        log.debug('echelon: %s %s' % (echelonCode,
+                                      str(echelonLayer is not None)))
 
         amplifierCode = code[3] + code[8:10]
         amplifierLayer = getSymbolLayer('Amplifier', amplifierCode, size)
         if amplifierLayer is not None:
             symbol.insertSymbolLayer(0, amplifierLayer)
-        # print('amplifier: %s %s' % (
-        #     amplifierCode, str(amplifierLayer is not None)))
+        log.debug('amplifier: %s %s' % (
+            amplifierCode, str(amplifierLayer is not None)))
 
         hqtffdCode = code[3:6] + code[7]
         hqtffdLayer = getSymbolLayer('HQTFFD', hqtffdCode, size)
         if hqtffdLayer is not None:
             symbol.insertSymbolLayer(0, hqtffdLayer)
-        # print('hqtffd: %s %s' % (hqtffdCode, str(hqtffdLayer is not None)))
+        log.debug('hqtffd: %s %s' % (hqtffdCode, str(hqtffdLayer is not None)))
 
         ocaCode = code[2:7] + '2'
         ocaLayer = getSymbolLayer('OCA', ocaCode, size)
         if ocaLayer is not None:
             symbol.insertSymbolLayer(0, ocaLayer)
-        # print('oca: %s %s' % (ocaCode, str(ocaLayer is not None)))
+        log.debug('oca: %s %s' % (ocaCode, str(ocaLayer is not None)))
 
         mainCode = code[4:6] + code[10:16]
         mainLayer = getSymbolLayer('Appendices', mainCode, size)
         if mainLayer is not None:
             symbol.insertSymbolLayer(0, mainLayer)
-        # print('main: %s %s' % (mainCode, str(mainLayer is not None)))
+        log.debug('main: %s %s' % (mainCode, str(mainLayer is not None)))
 
         modifier1Code = code[4:6] + code[16:18] + '1'
         modifier1Layer = getSymbolLayer('Appendices', modifier1Code, size)
@@ -87,7 +94,7 @@ def symbolForCode(code, size):
         frameLayer = getSymbolLayer('Frames', frameCode, size)
         if frameLayer is not None:
             symbol.insertSymbolLayer(0, frameLayer)
-        # print('frame: %s %s' % (frameCode, str(frameLayer is not None)))
+        log.debug('frame: %s %s' % (frameCode, str(frameLayer is not None)))
 
         if symbol.symbolLayerCount() == 0:
             symbol = None
