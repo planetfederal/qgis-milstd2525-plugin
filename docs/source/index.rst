@@ -1,4 +1,4 @@
-.. (c) 2016 Boundless, http://boundlessgeo.com
+.. (c) 2019 Planet Inc., https://planet.com
    This code is licensed under the GPL 2.0 license.
 
 .. MIL-STD-2525 QGIS Plugin documentation master file, created by

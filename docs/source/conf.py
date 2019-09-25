@@ -44,7 +44,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'MIL-STD-2525'
-copyright = u'2016 Boundless Spatial, Inc.'
+copyright = u'2019 Planet Inc.'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -222,7 +222,7 @@ latex_documents = [
 
 # Substitutions
 rst_epilog = """
-.. |BLQGIS| replace:: *Boundless Desktop*
+.. |BLQGIS| replace:: *QGIS*
 """
 
 # -- Options for manual page output ---------------------------------------
