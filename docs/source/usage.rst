@@ -36,9 +36,9 @@ Custom edit widget
 
 The custom field edit widget helps to enter SIDC codes in the feature form and attribute table, with a marker preview.
 
-To set the edit widget to a layer's field, open the :guilabel:`Layer Properties` dialog of the layer, and go to the :guilabel:`Fields` tab. In the :guilabel:`Fields` group, for the field that you want to use to store SIDC codes, click on the button in the :guilabel:`Edit widget` column. The :guilabel:`Edit Widget Properties` dialog will open. Select the :guilabel:`SIDC code editor` option from the list of widgets and click :guilabel:`OK`. Finally, close the :guilabel:`Layer Properties` dialog by clicking :guilabel:`OK`.
+To set the edit widget to a layer's field, open the :guilabel:`Layer Properties` dialog of the layer, and go to the :guilabel:`Attributes Form` tab. In the :guilabel:`Fields` group, for the field that you want to use to store SIDC codes, click on the pop up menu in the :guilabel:`Widget type` group box, and select the :guilabel:`SIDC code editor` option from the list of widgets. Finally, close the :guilabel:`Layer Properties` dialog by clicking :guilabel:`OK`.
 
-.. figure:: img/set_custom_widget.png
+.. figure:: img/set_custom_widget_qgis3.png
 
 Now, if you open the attributes table of the layer and set the layer to edit mode, the SIDC field will have a text box to enter the code and a button.
 
