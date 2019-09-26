@@ -1,8 +1,26 @@
 # -*- coding: utf-8 -*-
-#
-# (c) 2016 Boundless, http://boundlessgeo.com
-# This code is licensed under the GPL 2.0 license.
-#
+"""
+***************************************************************************
+    pavement.py
+    ---------------------
+    Date          : September 2019
+    Copyright     : (C) 2016 Boundless, 2019 Planet Inc, https://planet.com
+***************************************************************************
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************
+"""
+__author__ = 'Planet Federal'
+__date__ = 'September 2019'
+__copyright__ = '(C) 2019 Planet Inc, https://planet.com'
+
+# This will get replaced with a git SHA1 when you do a git archive
+__revision__ = '$Format:%H$'
+
 import os
 import sys
 import fnmatch
@@ -27,6 +45,7 @@ options(
         package_dir=path('.'),
         ext_libs=path('milstd2525/extlibs'),
         ext_src=path('milstd2525/ext-src'),
+        tests=['test', 'tests'],
         excludes=[
             '*.pyc',
             '.git',
