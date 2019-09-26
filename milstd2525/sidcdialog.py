@@ -141,6 +141,10 @@ class SIDCDialog(BASE, WIDGET):
         super(SIDCDialog, self).__init__()
         self.setupUi(self)
 
+        self.icons = {}
+        self.m1 = {}
+        self.m2 = {}
+
         self.comboStatus.addItems(sorted(self.status.keys()))
         self.comboStandardId1.addItems(sorted(self.standardId1.keys()))
         self.comboStandardId2.addItems(sorted(self.standardId2.keys()))
@@ -179,9 +183,6 @@ class SIDCDialog(BASE, WIDGET):
                 pass
 
         self.newCode = None
-        self.icons = {}
-        self.m1 = {}
-        self.m2 = {}
 
     # noinspection PyMethodMayBeStatic
     def _setComboItem(self, combo, options, value):
