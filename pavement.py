@@ -65,12 +65,12 @@ options(
 )
 
 
-# noinspection PyUnusedLocal
+# noinspection PyUnusedLocal,PyShadowingNames,DuplicatedCode
 @task
 @cmdopts([
     ('clean', 'c', 'clean out dependencies first'),
 ])
-def setup():
+def setup(options):
     # noinspection PyBroadException
     clean = getattr(options, 'clean', False)
     ext_libs = options.plugin.ext_libs
@@ -89,9 +89,9 @@ def setup():
         try:
             ret = subprocess.check_call(
                 [sys.executable, '-m', 'pip', 'install', '--upgrade',
-                 '--no-deps', '-t', f'{ext_libs.abspath()}', req])
+                 '--no-deps', '-t', ext_libs.abspath(), req])
         except subprocess.CalledProcessError:
-            error(f"Error installing {req} with pip.")
+            error("Error installing {0} with pip.".format(req))
             sys.exit(1)
 
 
@@ -136,9 +136,12 @@ def install(options):
                 docs.symlink(docs_link)
 
 
-def read_requirements():
+def read_requirements(dev=False):
     """Return a list of runtime and list of test requirements"""
-    lines = open('requirements.txt').readlines()
+    reqs = 'requirements.txt'
+    if dev:
+        reqs = 'requirements-dev.txt'
+    lines = open(reqs).readlines()
     lines = [l for l in [l.strip() for l in lines] if l]
     divider = '# test requirements'
 
@@ -270,18 +273,22 @@ def builddocs(options):
                                               options.sphinx.builddir))
 
 
+# noinspection PyUnusedLocal,PyShadowingNames,DuplicatedCode
 @task
-def install_devtools():
+def install_devtools(options):
     """Install development tools"""
-    # noinspection PyBroadException
-    try:
-        # noinspection PyPackageRequirements
-        import pip
-    except:
-        error('FATAL: Unable to import pip, please install it first!')
-        sys.exit(1)
-
-    pip.main(['install', '-r', 'requirements-dev.txt'])
+    ext_libs = options.plugin.ext_libs
+    ext_libs.makedirs()
+    runtime, test = read_requirements(dev=True)
+    os.environ['PYTHONPATH'] = ext_libs.abspath()
+    for req in runtime + test:
+        try:
+            ret = subprocess.check_call(
+                [sys.executable, '-m', 'pip', 'install', '--upgrade',
+                 '--no-deps', '-t', ext_libs.abspath(), req])
+        except subprocess.CalledProcessError:
+            error("Error installing {0} with pip.".format(req))
+            sys.exit(1)
 
 
 # noinspection PyPackageRequirements
@@ -328,7 +335,7 @@ def autopep8(args):
 
     cmd_args = autopep8.parse_args(args)
 
-    excludes = ('ext-lib', 'ext-src')
+    excludes = ('extlib', 'ext-src')
     for p in options.plugin.source_dir.walk():
         if any(exclude in p for exclude in excludes):
             continue
