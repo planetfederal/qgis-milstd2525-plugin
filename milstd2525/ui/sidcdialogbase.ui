@@ -17,7 +17,11 @@
    <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="1">
-      <widget class="QComboBox" name="comboStandardId1"/>
+      <widget class="QComboBox" name="comboStandardId1">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="6" column="0">
       <widget class="QLabel" name="label_8">
@@ -76,7 +80,11 @@
       </widget>
      </item>
      <item row="8" column="1">
-      <widget class="QComboBox" name="comboModifier1"/>
+      <widget class="QComboBox" name="comboModifier1">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="8" column="0">
       <widget class="QLabel" name="label_10">
@@ -86,7 +94,11 @@
       </widget>
      </item>
      <item row="9" column="1">
-      <widget class="QComboBox" name="comboModifier2"/>
+      <widget class="QComboBox" name="comboModifier2">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="9" column="0">
       <widget class="QLabel" name="label_11">
@@ -96,25 +108,53 @@
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QComboBox" name="comboStandardId2"/>
+      <widget class="QComboBox" name="comboStandardId2">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QComboBox" name="comboSymbolSet"/>
+      <widget class="QComboBox" name="comboSymbolSet">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="comboStatus"/>
+      <widget class="QComboBox" name="comboStatus">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="comboHQ"/>
+      <widget class="QComboBox" name="comboHQ">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QComboBox" name="comboEchelon"/>
+      <widget class="QComboBox" name="comboEchelon">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="6" column="1">
-      <widget class="QComboBox" name="comboIcon"/>
+      <widget class="QComboBox" name="comboIcon">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
      <item row="7" column="1">
-      <widget class="QComboBox" name="comboSubtypes"/>
+      <widget class="QComboBox" name="comboSubtypes">
+       <property name="sizeAdjustPolicy">
+        <enum>QComboBox::AdjustToMinimumContentsLength</enum>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
