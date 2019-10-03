@@ -76,6 +76,7 @@ class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
             dialog.exec_()
             if dialog.newCode is not None:
                 self.widget.edit.setText(dialog.newCode)
+                self.valueChanged.emit(dialog.newCode)
 
         self.widget.button.clicked.connect(showDialog)
         self.widget.hbox = QHBoxLayout()
