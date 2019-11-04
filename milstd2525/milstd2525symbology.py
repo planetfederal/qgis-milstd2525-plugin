@@ -127,6 +127,8 @@ def getSymbolLayer(folder, svg, size):
 # noinspection PyPep8Naming
 def getDefaultSymbol(size):
     symbol = QgsMarkerSymbol()
+    for i in range(symbol.symbolLayerCount()):
+        symbol.takeSymbolLayer(0)
     symbolLayer = QgsSvgMarkerSymbolLayer(
         os.path.join(os.path.dirname(__file__), 'svg', 'question.svg'))
     symbolLayer.setSizeUnit(3)
