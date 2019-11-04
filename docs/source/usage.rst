@@ -14,9 +14,9 @@ Custom Renderer
 
 The custom renderer will allow styling vector point layers using SIDC codes from one of the layer's attributes.
 
-In the :guilabel:`Style` tab of the :guilabel:`Layer Properties` dialog, you will find a new renderer named *MIL-STD-2525*.
+In the :guilabel:`Symbology` tab of the :guilabel:`Layer Properties` dialog, you will find a new renderer named *MIL-STD-2525*.
 
-.. figure:: img/rendererEntry.png
+.. figure:: img/rendererEntry_qgis3.png
 
 The renderer has two configuration parameters:
 
@@ -56,3 +56,51 @@ Now, if you open the attributes table of the layer and set the layer to edit mod
 Clicking on the button will show the preview dialog, that you can use to enter a code and preview the corresponding marker.
 
 .. figure:: img/markerPreview.png
+
+Feature Editing
+---------------
+
+The following scenarios cover working with, or integrating, the plugin into
+feature editing workflows within QGIS.
+
+Existing vector layer already has an SIDC attribute field
+.........................................................
+
+To have existing SIDC values rendered as icons on map canvas:
+
+* Assign renderer for map layer to the *MIL-STD-2525* custom renderer (see above).
+* Map the field to the :guilabel:`SIDC code field` configuration option (see above).
+
+
+To visually change existing SIDC attribute values:
+
+* Ensure the vector layer has the *custom edit widget* mapped to the SIDC field (see above).
+* Toggle the vector map layer into edit mode.
+* Using the :guilabel:`Identify Features` map tool, select features. In the resulting :guilabel:`Identify Results` panel, click the :guilabel:`View feature form` button, then use the edit widget mapped to the SIDC field to change the code.
+* Alternatively, you can chose to :guilabel:`Open Attribute Table` for the vector map layer, where you can see and edit all feature attributes. Switch it to 'form view', then use the edit widget mapped to the SIDC field to change the code for single or multiple features.
+
+Existing vector layer does NOT have an SIDC attribute field
+...........................................................
+
+Add a new attribute field to the original data source of the vector layer. The properties of the field vary per data source type, though it only needs to be large enough to store the SIDC code text.
+
+For example, to add an SIDC text field to an ESRI shapefile, set its properties as follows (suggested field name)::
+
+  Field   Type     Length   Precision
+  SIDC    String   25       0
+
+
+Then, you can visually add a new symbol attribute value by following the workflow preceeding this one.
+
+Add new features to an existing vector layer and set SIDC attribute value
+.........................................................................
+
+Assuming all preceeding workflows have been addressed for the vector map layer, i.e. an SIDC attribute field exists and the custom renderer and edit widget have been mapped:
+
+* Toggle the vector map layer into edit mode
+* Use QGIS feature creation tools (see official docs) to create a new feature.
+* An attribute form should pop up, where you can use the edit widget mapped to the SIDC field to visually add a new code.
+
+.. note::
+
+   If the attribute form does not show up upon feature creation, ensure the :guilabel:`Options -> Digitizing -> Feature creation -> 'Suppress attribute form pop-up after feature creation'` option is not checked. If you want to keep that option checked, you will have to use other means to edit the attribute vaule, e.g. :guilabel:`Identify Features` map tool or :guilabel:`Open Attribute Table` action, as noted above.
