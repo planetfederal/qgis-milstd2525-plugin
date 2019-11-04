@@ -32,8 +32,8 @@ from qgis.PyQt import uic
 
 from qgis.core import QgsFeatureRenderer 
 from qgis.core import QgsRendererAbstractMetadata 
-from qgis.core import QgsMarkerSymbol 
-from qgis.core import QgsSymbol
+# from qgis.core import QgsMarkerSymbol
+# from qgis.core import QgsSymbol
 from qgis.gui import QgsRendererWidget
 from qgis.core import QgsFieldProxyModel
 
@@ -47,13 +47,13 @@ WIDGET, BASE = uic.loadUiType(
 
 
 class MilStd2525Renderer(QgsFeatureRenderer):
-    def __init__(self, size=40, field=''):
+    def __init__(self, size=40, field='', context=None):
         QgsFeatureRenderer.__init__(self, 'MilStd2525Renderer')
         self.field = field
-        self.size = size
-        self._defaultSymbol = getDefaultSymbol(size)
+        self.size = int(size)
+        self._defaultSymbol = getDefaultSymbol(int(size))
         self.cached = {}
-        self.context = None
+        self.context = context
 
     def symbolForFeature(self, feature, context):
         idx = feature.fieldNameIndex(self.field) \
@@ -63,26 +63,28 @@ class MilStd2525Renderer(QgsFeatureRenderer):
             if code not in self.cached:
                 symbol = symbolForCode(code, self.size)
                 if symbol is None:
-                    self._defaultSymbol.setSize(self.size)
                     self.cached[code] = self._defaultSymbol
                 else:
                     self.cached[code] = symbol.clone()
-                    self.cached[code].startRender(self.context)
-            self.cached[code].setSize(self.size)
+            # Should be done in startRender, but new symbols unavialable there
+            self.cached[code].startRender(context)
             return self.cached[code]
         else:
             return self._defaultSymbol
 
     def startRender(self, context=None, fields=None):
         self.context = context
-        for k, v in list(self.cached.items()):
-            v.startRender(context)
-        self._defaultSymbol.startRender(context)
+        # This is handled in symbolForFeature for cached symbols
+        # for k in list(self.cached.keys()):
+        #     self.cached[k].startRender(context=context, fields=fields)
+        self._defaultSymbol.startRender(context=context, fields=fields)
+        super().startRender(context=context, fields=fields)
 
     def stopRender(self, context=None):
         for s in list(self.cached.values()):
             s.stopRender(context)
         self._defaultSymbol.stopRender(context)
+        super().stopRender(context)
 
     def usedAttributes(self, context):
         return [self.field]
@@ -91,7 +93,8 @@ class MilStd2525Renderer(QgsFeatureRenderer):
         return list(self.cached.values())
 
     def clone(self):
-        r = MilStd2525Renderer(self.size, self.field)
+        r = MilStd2525Renderer(
+            size=self.size, field=self.field, context=self.context)
         r.cached = self.cached
         return r
 
@@ -103,10 +106,10 @@ class MilStd2525Renderer(QgsFeatureRenderer):
         return elem
 
     # noinspection PyUnusedLocal,PyMethodMayBeStatic
-    def create(self, symbology_elem, context):
-        size = elem.attribute('size')
-        field = elem.attribute('field')
-        r = MilStd2525Renderer(size, field)
+    def load(self, symbology_elem, context):
+        size = int(symbology_elem.attribute('size'))
+        field = symbology_elem.attribute('field')
+        r = MilStd2525Renderer(size=size, field=field, context=context)
         return r
 
 
@@ -152,8 +155,8 @@ class MilStd2525RendererMetadata(QgsRendererAbstractMetadata):
     def createRenderer(self, element, context):
         size = int(element.attribute('size'))
         field = element.attribute('field')
-        print(size, field)
-        return MilStd2525Renderer(size, field)
+        # print(size, field)
+        return MilStd2525Renderer(size=size, field=field, context=context)
 
     def createRendererWidget(self, layer, style, renderer):
         return MilStd2525RendererWidget(layer, style, renderer)
