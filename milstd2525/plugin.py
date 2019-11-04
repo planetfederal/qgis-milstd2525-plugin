@@ -27,11 +27,11 @@ __copyright__ = '(C) 2015-2016, 2018 Boundless, ' \
 __revision__ = '$Format:%H$'
 
 import os
-import webbrowser
+# import webbrowser
 
-from qgis.PyQt.QtWidgets import QAction
+# from qgis.PyQt.QtWidgets import QAction
 
-from qgis.core import Qgis
+# from qgis.core import Qgis
 from qgis.core import QgsApplication
 
 from qgis.gui import QgsGui
@@ -54,6 +54,7 @@ class MilStd2525Plugin(object):
         # noinspection PyBroadException
         try:
             from milstd2525.tests import testerplugin
+            # noinspection PyUnresolvedReferences
             from qgistester.tests import addTestModule
             addTestModule(testerplugin, 'MIL-STD-2525')
         except:
@@ -74,6 +75,7 @@ class MilStd2525Plugin(object):
 
         # noinspection PyBroadException
         try:
+            # noinspection PyUnresolvedReferences
             from lessons import addLessonsFolder, addGroup
             folder = os.path.join(os.path.dirname(__file__), "_lessons")
             addLessonsFolder(folder, "milstd2525")
@@ -91,6 +93,7 @@ class MilStd2525Plugin(object):
         # noinspection PyBroadException
         try:
             from milstd2525.tests import testerplugin
+            # noinspection PyUnresolvedReferences
             from qgistester.tests import removeTestModule
             removeTestModule(testerplugin, 'MIL-STD-2525')
         except:
@@ -98,8 +101,9 @@ class MilStd2525Plugin(object):
 
         # noinspection PyBroadException
         try:
+            # noinspection PyUnresolvedReferences
             from lessons import removeLessonsFolder
-            folder = os.path.join(pluginPath, '_lessons')
+            folder = os.path.join(os.path.dirname(__file__), '_lessons')
             removeLessonsFolder(folder)
         except:
             pass

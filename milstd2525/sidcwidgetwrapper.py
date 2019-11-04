@@ -29,7 +29,7 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtWidgets import (
-    QWidget, QLabel, QLineEdit, QPushButton, QHBoxLayout,
+    QWidget, QLineEdit, QPushButton, QHBoxLayout,
 )
 
 from qgis.core import NULL
@@ -38,7 +38,7 @@ from qgis.gui import (
 )
 
 from milstd2525.sidcdialog import SIDCDialog
-from milstd2525.milstd2525symbology import symbolForCode
+# from milstd2525.milstd2525symbology import symbolForCode
 
 
 pluginPath = os.path.dirname(__file__)
@@ -76,8 +76,10 @@ class SIDCWidgetWrapper(QgsEditorWidgetWrapper):
             dialog.exec_()
             if dialog.newCode is not None:
                 self.widget.edit.setText(dialog.newCode)
+                # noinspection PyUnresolvedReferences
                 self.valueChanged.emit(dialog.newCode)
 
+        # noinspection PyUnresolvedReferences
         self.widget.button.clicked.connect(showDialog)
         self.widget.hbox = QHBoxLayout()
         self.widget.hbox.setMargin(0)
@@ -114,7 +116,7 @@ class SIDCWidgetWrapperFactory(QgsEditorWidgetFactory):
         self._configWidget = None
 
     # noinspection PyPep8Naming
-    def create(self, vl=None, fieldIdx=None,  editor=None, parent=None):
+    def create(self, vl=None, fieldIdx=None, editor=None, parent=None):
         self.wrapper = SIDCWidgetWrapper(vl, fieldIdx, editor, parent)
         return self.wrapper
 

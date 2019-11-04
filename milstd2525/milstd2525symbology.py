@@ -30,7 +30,7 @@ import os
 import fnmatch
 import logging
 
-from qgis.core import Qgis
+# from qgis.core import Qgis
 from qgis.core import QgsMarkerSymbol
 from qgis.core import QgsSvgMarkerSymbolLayer
 
@@ -66,7 +66,8 @@ def symbolForCode(code, size):
         hqtffdLayer = getSymbolLayer('HQTFFD', hqtffdCode, size)
         if hqtffdLayer is not None:
             symbol.insertSymbolLayer(0, hqtffdLayer)
-        # log.debug('hqtffd: %s %s' % (hqtffdCode, str(hqtffdLayer is not None)))
+        # log.debug('hqtffd: %s %s' %
+        #           (hqtffdCode, str(hqtffdLayer is not None)))
 
         ocaCode = code[2:7] + '2'
         ocaLayer = getSymbolLayer('OCA', ocaCode, size)
