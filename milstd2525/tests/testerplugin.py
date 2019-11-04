@@ -90,7 +90,7 @@ def functionalTests():
 
     # noinspection PyUnusedLocal
     def _setRenderer():
-        r = MilStd2525Renderer(40, "SDIC")
+        r = MilStd2525Renderer(40, "SIDC")
         layer = _layerFromName("2525")
         layer.setRenderer(r)
         layer.reload()
@@ -110,7 +110,7 @@ def functionalTests():
     # editWidgetTest.addStep("Open layer properties", _openLayerProperties)
     editWidgetTest.addStep(
         "Open layer properties, go to the 'Fields' tab  and set the edit "
-        "widget of the SDIC field to 'SDIC code editor'",
+        "widget of the SIDC field to 'SIDC code editor'",
         _openLayerProperties)
     editWidgetTest.addStep("Toggle editing", _startEditing)
     # editWidgetTest.addStep("Open attributes table", _openAttributesTable)
@@ -215,7 +215,7 @@ class MilStd2525Test(unittest.TestCase):
             os.path.dirname(__file__), "data", "project.qgs")
         iface.addProject(projfile)
         layer = _layerFromName("2525")
-        renderer = MilStd2525Renderer(50, "SDIC")
+        renderer = MilStd2525Renderer(50, "SIDC")
         layer.setRenderer(renderer)
         newProjectFile = tempFilename("qgs")
         # noinspection PyArgumentList

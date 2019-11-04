@@ -74,7 +74,7 @@
         </spatialrefsys>
       </srs>
       <provider encoding="UTF-8">ogr</provider>
-      <previewExpression>COALESCE( "SDIC", '&lt;NULL>' )</previewExpression>
+      <previewExpression>COALESCE( "SIDC", '&lt;NULL>' )</previewExpression>
       <vectorjoins/>
       <layerDependencies/>
       <expressionfields/>
@@ -82,7 +82,7 @@
         <map-layer-style name=""/>
       </map-layer-style-manager>
       <edittypes>
-        <edittype widgetv2type="TextEdit" name="SDIC">
+        <edittype widgetv2type="TextEdit" name="SIDC">
           <widgetv2config IsMultiline="0" fieldEditable="1" constraint="" UseHtml="0" labelOnTop="0" constraintDescription="" notNull="0"/>
         </edittype>
       </edittypes>
@@ -259,7 +259,7 @@
       <blendMode>0</blendMode>
       <featureBlendMode>0</featureBlendMode>
       <layerTransparency>0</layerTransparency>
-      <displayfield>SDIC</displayfield>
+      <displayfield>SIDC</displayfield>
       <label>0</label>
       <labelattributes>
         <label fieldname="" text="Label"/>
@@ -316,7 +316,7 @@
       <attributeactions default="-1"/>
       <attributetableconfig actionWidgetStyle="dropDown" sortExpression="" sortOrder="49">
         <columns>
-          <column width="-1" hidden="0" type="field" name="SDIC"/>
+          <column width="-1" hidden="0" type="field" name="SIDC"/>
           <column width="-1" hidden="1" type="actions"/>
         </columns>
       </attributetableconfig>

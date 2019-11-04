@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>SDIC code</string>
+   <string>SIDC code</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -175,7 +175,7 @@
         </font>
        </property>
        <property name="text">
-        <string>SDIC code</string>
+        <string>SIDC code</string>
        </property>
       </widget>
      </item>

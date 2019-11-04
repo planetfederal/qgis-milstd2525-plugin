@@ -45,7 +45,7 @@ Here's some extra info to continue developing/testing this plugin.
 
 A generator of markers from SIDC codes can be found [here](http://spatialillusions.com/unitgenerator.html)
 
-This tool is useful for checking that markers are correctly rendered and the SDIC codes are being correctly interpreted.
+This tool is useful for checking that markers are correctly rendered and the SIDC codes are being correctly interpreted.
 
 ---
 
