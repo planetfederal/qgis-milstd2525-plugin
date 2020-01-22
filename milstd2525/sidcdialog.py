@@ -29,15 +29,18 @@ import os
 
 from qgis.PyQt import uic
 from qgis.PyQt.QtGui import QPixmap
+from qgis.PyQt.QtWidgets import QDialog
 
 from milstd2525.milstd2525symbology import symbolForCode
 
-WIDGET, BASE = uic.loadUiType(
-    os.path.join(os.path.dirname(__file__), 'ui', 'sidcdialogbase.ui'))
+# WIDGET, BASE = uic.loadUiType(
+#     os.path.join(os.path.dirname(__file__), 'ui', 'sidcdialogbase.ui'))
+from milstd2525.ui.sidcdialogbase import Ui_SidcDialog
 
 
 # noinspection PyPep8Naming
-class SIDCDialog(BASE, WIDGET):
+# class SIDCDialog(BASE, WIDGET):
+class SIDCDialog(QDialog, Ui_SidcDialog):
 
     standardId1 = {
         "Reality": "0",
@@ -1903,3 +1906,12 @@ class SIDCDialog(BASE, WIDGET):
     def accept(self):
         self.newCode = self.txtCode.text()
         self.close()
+
+
+if __name__ == "__main__":
+    import sys
+    from qgis.PyQt.QtWidgets import QApplication
+    app = QApplication(sys.argv)
+    dlg = SIDCDialog()
+    dlg.show()
+    sys.exit(app.exec_())
